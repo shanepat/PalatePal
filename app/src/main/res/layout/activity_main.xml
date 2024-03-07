@@ -51,10 +51,7 @@
         android:inputType="text"
         android:autofillHints="" />
 
-    <!-- Section Title -->
 
-    <!-- List of Dining Halls -->
-    <!-- Replace with your list divider drawable resource -->
 
     <TextView
         android:id="@+id/tvSectionTitle"
