@@ -30,7 +30,8 @@
             android:layout_marginStart="16dp"
             android:background="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/post_button" />
+            android:src="@drawable/post_button"
+            android:contentDescription="@string/post_button"/>
     </LinearLayout>
 
     <EditText
@@ -47,7 +48,8 @@
         android:singleLine="true"
         android:layout_below="@+id/header"
         android:layout_marginTop="8dp"
-        android:inputType="text" />
+        android:inputType="text"
+        android:autofillHints="" />
 
     <!-- Section Title -->
 
@@ -60,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="139dp"
         android:padding="16dp"
-        android:text="Dining Halls.."
+        android:text="@string/dining_halls"
         android:textSize="24sp"
         tools:ignore="NotSibling" />
 
@@ -80,7 +82,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_1"
-            android:text="Case Hall" />
+            android:text="@string/case_hall" />
 
         <Button
             android:id="@+id/button_cowen_hall"
@@ -89,7 +91,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_2"
-            android:text="Case Hall" />
+            android:text="@string/owen_hall" />
 
         <Button
             android:id="@+id/button_brody_hall"
@@ -131,35 +133,42 @@
 
         <Button
             android:id="@+id/button_home"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/home_button"
             android:drawableTop="@drawable/home_button" />
 
         <Button
             android:id="@+id/button_map"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/map_button"
-            style="?android:attr/buttonBarButtonStyle" />
+            android:contentDescription="@string/map_button"
+            android:drawableTop="@drawable/map_button" />
 
         <Button
             android:id="@+id/button_message"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/navigation_message"
             android:drawableTop="@drawable/message_button" />
 
         <Button
             android:id="@+id/button_sidebar"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/sidebar_button"
             android:drawableTop="@drawable/sidebar_button" />
 
     </LinearLayout>

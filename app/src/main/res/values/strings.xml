@@ -10,4 +10,8 @@
     <string name="home" />
     <string name="select_dining_hall">Select Dining Hall</string>
     <string name="logo">logo</string>
+    <string name="post_button">post button</string>
+    <string name="dining_halls">Dining Halls..</string>
+    <string name="case_hall">Case Hall</string>
+    <string name="owen_hall">Owen Hall\n</string>
 </resources>
