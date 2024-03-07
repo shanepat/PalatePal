@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Palatepal</string>
+    <string name="home_button">home_button</string>
+    <string name="map_button" />
+    <string name="home_butto" />
+    <string name="navigation_message" />
+    <string name="sidebar_button" />
+    <string name="sidebar_button1" />
+    <string name="a" />
+    <string name="home" />
+    <string name="select_dining_hall">Select Dining Hall</string>
+</resources>

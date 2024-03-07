@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/home_button"
+        android:title="@string/home" /> <!-- Replace with your icon -->
+
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/map_button"
+        android:title="@string/map_button" /> <!-- Replace with your icon -->
+
+
+    <item
+        android:id="@+id/navigation_message"
+        android:icon="@drawable/message_button"
+        android:title="@string/navigation_message" /> <!-- Replace with your icon -->
+
+
+    <item
+        android:id="@+id/navigation_sidebar"
+        android:icon="@drawable/sidebar_button_1_5x"
+        android:title="@string/a" /> <!-- Replace with your icon -->
+
+
+</menu>

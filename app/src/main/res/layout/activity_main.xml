@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF">
+
+    <!-- Header with Logo and Post Review Button -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo" /> <!-- Replace with your logo drawable resource -->
+
+        <ImageButton
+            android:id="@+id/post_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:background="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/post_button" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/search_view_background"
+        android:drawableEnd="@drawable/vector"
+        android:drawablePadding="10dp"
+        android:hint="@string/select_dining_hall"
+        android:padding="12dp"
+        android:singleLine="true"
+        android:layout_below="@+id/header"
+        android:layout_marginTop="8dp"
+        android:inputType="text" />
+
+    <!-- Section Title -->
+
+    <!-- List of Dining Halls -->
+    <!-- Replace with your list divider drawable resource -->
+
+    <TextView
+        android:id="@+id/tvSectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="139dp"
+        android:padding="16dp"
+        android:text="Dining Halls.."
+        android:textSize="24sp"
+        tools:ignore="NotSibling" />
+
+    <LinearLayout
+        android:id="@+id/llDiningHalls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextSearch"
+        android:layout_marginTop="31dp"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <Button
+            android:id="@+id/button_case_hall"
+            android:layout_width="match_parent"
+            android:layout_height="81dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/review_1"
+            android:text="Case Hall" />
+
+        <Button
+            android:id="@+id/button_cowen_hall"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/review_2"
+            android:text="Case Hall" />
+
+        <Button
+            android:id="@+id/button_brody_hall"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/review_1"
+            android:text="Case Hall" />
+
+        <Button
+            android:id="@+id/button_akers_hall"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/review_1"
+            android:text="Case Hall" />
+
+        <Button
+            android:id="@+id/button_shaw_hall"
+            android:layout_width="match_parent"
+            android:layout_height="101dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/review_1"
+            android:text="Case Hall" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:background="@color/cardview_light_background"> <!-- Custom background color -->
+
+        <Button
+            android:id="@+id/button_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/home_button" /> <!-- Your icon -->
+
+        <Button
+            android:id="@+id/button_map"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/map_button" /> <!-- Your icon -->
+
+        <Button
+            android:id="@+id/button_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/message_button" /> <!-- Your icon -->
+
+        <Button
+            android:id="@+id/button_sidebar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/sidebar_button" /> <!-- Your icon -->
+
+    </LinearLayout>
+</RelativeLayout>
