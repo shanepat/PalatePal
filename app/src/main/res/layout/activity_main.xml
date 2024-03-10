@@ -6,6 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF">
 
+    <!-- Header with Logo and Post Review Button -->
+
+    <Button
+        android:id="@+id/firebase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="A" />
+
+    <TextView
+        android:id="@+id/review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="TextView" />
 
     <LinearLayout
         android:id="@+id/header"
@@ -19,8 +34,7 @@
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            android:contentDescription="@string/logo" />
+            android:src="@drawable/logo" /> <!-- Replace with your logo drawable resource -->
 
         <ImageButton
             android:id="@+id/post_button"
@@ -30,8 +44,7 @@
             android:layout_marginStart="16dp"
             android:background="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/post_button"
-            android:contentDescription="@string/post_button"/>
+            android:src="@drawable/post_button" />
     </LinearLayout>
 
     <EditText
@@ -48,10 +61,12 @@
         android:singleLine="true"
         android:layout_below="@+id/header"
         android:layout_marginTop="8dp"
-        android:inputType="text"
-        android:autofillHints="" />
+        android:inputType="text" />
 
+    <!-- Section Title -->
 
+    <!-- List of Dining Halls -->
+    <!-- Replace with your list divider drawable resource -->
 
     <TextView
         android:id="@+id/tvSectionTitle"
@@ -59,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="139dp"
         android:padding="16dp"
-        android:text="@string/dining_halls"
+        android:text="Dining Halls.."
         android:textSize="24sp"
         tools:ignore="NotSibling" />
 
@@ -79,7 +94,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_1"
-            android:text="@string/case_hall" />
+            android:text="Case Hall" />
 
         <Button
             android:id="@+id/button_cowen_hall"
@@ -88,7 +103,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_2"
-            android:text="@string/owen_hall" />
+            android:text="Case Hall" />
 
         <Button
             android:id="@+id/button_brody_hall"
@@ -126,47 +141,39 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:background="@color/cardview_light_background">
+        android:background="@color/cardview_light_background"> <!-- Custom background color -->
 
         <Button
             android:id="@+id/button_home"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/home_button"
-            android:drawableTop="@drawable/home_button" />
+            android:drawableTop="@drawable/home_button" /> <!-- Your icon -->
 
         <Button
             android:id="@+id/button_map"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/map_button"
-            android:drawableTop="@drawable/map_button" />
+            android:drawableTop="@drawable/map_button" /> <!-- Your icon -->
 
         <Button
             android:id="@+id/button_message"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/navigation_message"
-            android:drawableTop="@drawable/message_button" />
+            android:drawableTop="@drawable/message_button" /> <!-- Your icon -->
 
         <Button
             android:id="@+id/button_sidebar"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/sidebar_button"
-            android:drawableTop="@drawable/sidebar_button" />
+            android:drawableTop="@drawable/sidebar_button" /> <!-- Your icon -->
 
     </LinearLayout>
 </RelativeLayout>
