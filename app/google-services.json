@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "845742797864",
+    "project_id": "palatepaldb",
+    "storage_bucket": "palatepaldb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845742797864:android:656836946200ba99a9311d",
+        "android_client_info": {
+          "package_name": "msu.edu.cse476.dhillo17.palatepal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzCYWVHDanpYfypLL60sD6Ek33pYdf_fc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
