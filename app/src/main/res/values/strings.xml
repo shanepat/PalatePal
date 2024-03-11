@@ -9,4 +9,18 @@
     <string name="a" />
     <string name="home" />
     <string name="select_dining_hall">Select Dining Hall</string>
+    <string name="dining_hall">Case Hall</string>
+    <string name="back_button_description">Button to go to the previous screen</string>
+    <string name="gps_button_description">Button to go see the dining hall on the map</string>
+    <string name="calendar_button_description">Button to go change the current date</string>
+    <string name="breakfast_button">Breakfast</string>
+    <string name="lunch_button">Lunch</string>
+    <string name="dinner_button">Dinner</string>
+    <string name="sort_by_text">Sort by:</string>
+    <string-array name="sort_by_list">
+        <item>Highest Rated</item>
+        <item>Lowest Rated</item>
+        <item>Most Rated</item>
+        <item>Least Rated</item>
+    </string-array>
 </resources>

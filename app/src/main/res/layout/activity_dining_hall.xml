@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#20443C"
+    android:orientation="vertical"
+    tools:context=".DiningHallActivity">
+
+    <LinearLayout
+        android:id="@+id/dining_hall_header"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="1"
+        android:background="#000000"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/back_arrow_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:backgroundTint="#00000000"
+            android:contentDescription="@string/back_button_description"
+            app:srcCompat="@drawable/back_arrow" />
+
+        <TextView
+            android:id="@+id/DinningHall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/dining_hall"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp" />
+
+        <ImageButton
+            android:id="@+id/gps_button"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:backgroundTint="#00000000"
+            android:contentDescription="@string/gps_button_description"
+            app:srcCompat="@drawable/pin_icon" />
+
+        <ImageButton
+            android:id="@+id/calendar_button"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:backgroundTint="#00000000"
+            android:contentDescription="@string/calendar_button_description"
+            app:srcCompat="@drawable/calendar_icon" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/meal_selector"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".75"
+        android:background="#000000"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/breakfast_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="@string/breakfast_button"
+            android:textColor="#606060"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/lunch_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="@string/lunch_button"
+            android:textColor="#606060"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/dinner_button"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="@string/dinner_button"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sort_by"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_weight=".5"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/sort_by_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".5"
+            android:gravity="center"
+            android:text="@string/sort_by_text"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/sort_by_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F4F4F4"
+            android:entries="@array/sort_by_list" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reviewed_food_items"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/food_items" />
+    </LinearLayout>
+</LinearLayout>
