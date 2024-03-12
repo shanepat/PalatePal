@@ -23,4 +23,16 @@
         <item>Most Rated</item>
         <item>Least Rated</item>
     </string-array>
+
+    <string name="email_login">Email</string>
+    <string name="password_login">Password</string>
+    <string name="email_signup">Email*</string>
+    <string name="firstname_signup">First Name*</string>
+    <string name="lastname_signup">Last Name*</string>
+    <string name="comfirm_password_signup">Confirm Password*</string>
+    <string name="welcome_back_spartan">Welcome back, spartan</string>
+    <string name="log_in">Log In</string>
+    <string name="button_to_sign_in">Button to Sign In</string>
+    <string name="no_account">Don\'t have Account?</string>
+    <string name ="signup">Sign Up</string>
 </resources>
