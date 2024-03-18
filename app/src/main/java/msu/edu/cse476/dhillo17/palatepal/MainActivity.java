@@ -3,6 +3,7 @@ package msu.edu.cse476.dhillo17.palatepal;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -54,4 +55,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    // TODO: Still need to work on this
+    public void OnTargetedDiningHall(View view, String diningHall) {
+        Intent intent = new Intent(this, DiningHallActivity.class);
+        intent.putExtra("dining_hall", diningHall);
+        startActivity(intent);
+    }
+
 }

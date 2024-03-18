@@ -6,7 +6,7 @@
     <string name="navigation_message" />
     <string name="sidebar_button" />
     <string name="sidebar_button1" />
-    <string name="a" />
+    <string name="TEMP_BUTTON">TEMP_BUTTON</string>
     <string name="home" />
     <string name="select_dining_hall">Select Dining Hall</string>
     <string name="dining_hall">Case Hall</string>
