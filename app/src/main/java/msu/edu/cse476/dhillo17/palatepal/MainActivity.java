@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mReview = findViewById(R.id.review);
         mGetReview = findViewById(R.id.firebase);
         mGetReview.setOnClickListener(this);
+
     }
 
     public void onClick(View view)
@@ -57,9 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // TODO: Still need to work on this
-    public void OnTargetedDiningHall(View view, String diningHall) {
+    public void OnTargetedDiningHall(View view) {
         Intent intent = new Intent(this, DiningHallActivity.class);
-        intent.putExtra("dining_hall", diningHall);
+        // intent.putExtra("dining_hall", diningHall);
         startActivity(intent);
     }
 
