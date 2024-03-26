@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF">
 
-    <!-- Header with Logo and Post Review Button -->
+
 
     <Button
         android:id="@+id/firebase"
@@ -34,7 +34,7 @@
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo" /> <!-- Replace with your logo drawable resource -->
+            android:src="@drawable/logo" />
 
         <ImageButton
             android:id="@+id/post_button"
@@ -63,10 +63,6 @@
         android:layout_marginTop="8dp"
         android:inputType="text" />
 
-    <!-- Section Title -->
-
-    <!-- List of Dining Halls -->
-    <!-- Replace with your list divider drawable resource -->
 
     <TextView
         android:id="@+id/tvSectionTitle"
@@ -141,7 +137,7 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:background="@color/cardview_light_background"> <!-- Custom background color -->
+        android:background="@color/cardview_light_background">
 
         <Button
             android:id="@+id/button_home"
@@ -149,7 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/home_button" /> <!-- Your icon -->
+            android:drawableTop="@drawable/home_button" />
 
         <Button
             android:id="@+id/button_map"
@@ -157,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/map_button" /> <!-- Your icon -->
+            android:drawableTop="@drawable/map_button" />
 
         <Button
             android:id="@+id/button_message"
@@ -165,7 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/message_button" /> <!-- Your icon -->
+            android:drawableTop="@drawable/message_button" />
 
         <Button
             android:id="@+id/button_sidebar"
@@ -173,7 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/sidebar_button" /> <!-- Your icon -->
+            android:drawableTop="@drawable/sidebar_button" />
 
     </LinearLayout>
 </RelativeLayout>
