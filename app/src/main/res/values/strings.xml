@@ -6,12 +6,33 @@
     <string name="navigation_message" />
     <string name="sidebar_button" />
     <string name="sidebar_button1" />
-    <string name="a" />
+    <string name="TEMP_BUTTON">TEMP_BUTTON</string>
     <string name="home" />
     <string name="select_dining_hall">Select Dining Hall</string>
-    <string name="logo">logo</string>
-    <string name="post_button">post button</string>
-    <string name="dining_halls">Dining Halls..</string>
-    <string name="case_hall">Case Hall</string>
-    <string name="owen_hall">Owen Hall\n</string>
+    <string name="dining_hall">Case Hall</string>
+    <string name="back_button_description">Button to go to the previous screen</string>
+    <string name="gps_button_description">Button to go see the dining hall on the map</string>
+    <string name="calendar_button_description">Button to go change the current date</string>
+    <string name="breakfast_button">Breakfast</string>
+    <string name="lunch_button">Lunch</string>
+    <string name="dinner_button">Dinner</string>
+    <string name="sort_by_text">Sort by:</string>
+    <string-array name="sort_by_list">
+        <item>Highest Rated</item>
+        <item>Lowest Rated</item>
+        <item>Most Rated</item>
+        <item>Least Rated</item>
+    </string-array>
+
+    <string name="email_login">Email</string>
+    <string name="password_login">Password</string>
+    <string name="email_signup">Email*</string>
+    <string name="firstname_signup">First Name*</string>
+    <string name="lastname_signup">Last Name*</string>
+    <string name="comfirm_password_signup">Confirm Password*</string>
+    <string name="welcome_back_spartan">Welcome back, spartan</string>
+    <string name="log_in">Log In</string>
+    <string name="button_to_sign_in">Button to Sign In</string>
+    <string name="no_account">Don\'t have Account?</string>
+    <string name ="signup">Sign Up</string>
 </resources>

@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="A" />
+        android:onClick="onClick"
+        android:text="TEMP_ BUTTON" />
 
     <TextView
         android:id="@+id/review"
@@ -90,6 +91,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_1"
+            android:onClick="OnTargetedDiningHall"
             android:text="Case Hall" />
 
         <Button
