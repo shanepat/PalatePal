@@ -3,6 +3,8 @@ package msu.edu.cse476.dhillo17.palatepal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +37,18 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(homeIntent);
             }
         }));
+
+        ImageButton signInButton = (ImageButton) findViewById(R.id.btn_login);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(mainIntent);
+
+
+                finish();
+            }
+        });
     }
 
 }
