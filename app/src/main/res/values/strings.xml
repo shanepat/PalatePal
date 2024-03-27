@@ -26,13 +26,20 @@
 
     <string name="email_login">Email</string>
     <string name="password_login">Password</string>
-    <string name="email_signup">Email*</string>
-    <string name="firstname_signup">First Name*</string>
-    <string name="lastname_signup">Last Name*</string>
-    <string name="comfirm_password_signup">Confirm Password*</string>
-    <string name="welcome_back_spartan">Welcome back, spartan</string>
+    <string name="email_reg">Email*</string>
+    <string name="firstname_reg">First Name*</string>
+    <string name="lastname_reg">Last Name*</string>
+    <string name="pwd_reg">Confirm Password*</string>
+    <string name="comfirm_pwd">Confirm Password*</string>
+    <string name="welcome_back">Welcome back, Spartan!</string>
+    <string name="welcome">Welcome, Spartan!</string>
     <string name="log_in">Log In</string>
-    <string name="button_to_sign_in">Button to Sign In</string>
+    <string name="signinbtn_des">Button to Sign In</string>
+    <string name="signupbtn_des">Button to Sign Up</string>
     <string name="no_account">Don\'t have Account?</string>
     <string name ="signup">Sign Up</string>
+    <string name ="logo_des">Logo for PalatePal</string>
+    <string name="register_agreement">I agree to the Term of Service and Privacy Policy</string>
+
+
 </resources>
