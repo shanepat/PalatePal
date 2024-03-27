@@ -1,6 +1,10 @@
 package msu.edu.cse476.dhillo17.palatepal;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,10 +18,23 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signin);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        TextView registerButton = (TextView) findViewById(R.id.register);
+        registerButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                LoginActivity.this.startActivity(registerIntent);
+            }
+        }));
+
+        ImageView homeButton = (ImageView) findViewById(R.id.logo);
+        homeButton.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent homeIntent = new Intent(LoginActivity.this, MainActivity.class);
+                LoginActivity.this.startActivity(homeIntent);
+            }
+        }));
     }
+
 }
