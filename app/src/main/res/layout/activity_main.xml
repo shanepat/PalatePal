@@ -12,16 +12,15 @@
         android:id="@+id/firebase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:onClick="onClick"
-        android:text="TEMP_ BUTTON" />
+        android:text="@string/temp_button"
+        tools:ignore="UsingOnClickInXml" />
 
     <TextView
         android:id="@+id/review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:text="@string/textview" />
 
     <LinearLayout
         android:id="@+id/header"
@@ -35,7 +34,8 @@
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:contentDescription="@string/logo" />
 
         <ImageButton
             android:id="@+id/post_button"
@@ -45,7 +45,8 @@
             android:layout_marginStart="16dp"
             android:background="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/post_button" />
+            android:src="@drawable/post_button"
+            android:contentDescription="@string/post_button" />
     </LinearLayout>
 
     <EditText
@@ -92,7 +93,8 @@
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_1"
             android:onClick="OnTargetedDiningHall"
-            android:text="Case Hall" />
+            android:text="@string/case_hall"
+            tools:ignore="UsingOnClickInXml" />
 
         <Button
             android:id="@+id/button_cowen_hall"

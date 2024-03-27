@@ -40,6 +40,11 @@
     <string name ="signup">Sign Up</string>
     <string name ="logo_des">Logo for PalatePal</string>
     <string name="register_agreement">I agree to the Term of Service and Privacy Policy</string>
+    <string name="temp_button">TEMP_ BUTTON</string>
+    <string name="textview">TextView</string>
+    <string name="logo">Logo</string>
+    <string name="post_button">Post Button</string>
+    <string name="case_hall">Case Hall</string>
 
 
 </resources>
