@@ -32,6 +32,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button buttonCaseHall = findViewById(R.id.button_case_hall);
+        Button buttonCowenHall = findViewById(R.id.button_cowen_hall);
+        // Add listeners for each dining hall button
+        buttonCaseHall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDiningHallActivity("CaseHall");
+            }
+        });
+        buttonCowenHall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDiningHallActivity("CowenHall");
+            }
+        });
+
 
         mReview = findViewById(R.id.review);
         mGetReview = findViewById(R.id.firebase);
@@ -95,6 +111,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, DiningHallActivity.class);
         // intent.putExtra("dining_hall", diningHall);
         startActivity(intent);
+    }
+    private void openDiningHallActivity(String diningHallName) {
+        Intent intent = new Intent(MainActivity.this, DiningHallActivity.class);
+        intent.putExtra("DINING_HALL_NAME", diningHallName);
+        startActivity(intent);
+    }
+    public void onHomeClick(View view) {
+        // Do nothing to keep the user on the current page
     }
 
 }
