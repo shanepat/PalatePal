@@ -32,6 +32,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button mapButton = findViewById(R.id.button_map); // Adjust the ID to match your button
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
         Button buttonCaseHall = findViewById(R.id.button_case_hall);
         Button buttonCowenHall = findViewById(R.id.button_cowen_hall);
         // Add listeners for each dining hall button

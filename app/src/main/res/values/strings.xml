@@ -45,6 +45,7 @@
     <string name="logo">Logo</string>
     <string name="post_button">Post Button</string>
     <string name="case_hall">Case Hall</string>
+    <string name="map_placeholder_description">map</string>
 
 
 </resources>

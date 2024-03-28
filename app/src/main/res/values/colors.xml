@@ -4,4 +4,5 @@
     <color name="icon_color_default">#070707</color>
     <color name="text_color_green">#508D70</color>
     <color name="text_color_inbox">#7F7F7F</color>
+    <color name="cool_background_color">#E0F2F1</color>
 </resources>
