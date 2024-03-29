@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:id="@+id/my_account"
+        android:title="My Account"
+        android:icon="@drawable/profile_logo1_background"
+
+    />
+    <item
+        android:id="@+id/my_reviews"
+        android:title="My Reviews"
+        android:icon="@drawable/profile_logo1_background"
+
+        />
+    <item
+        android:id="@+id/my_dining_halls"
+        android:title="My Dining Halls"
+        android:icon="@drawable/profile_logo1_background"
+
+        />
+    <item
+        android:id="@+id/my_account_settings"
+        android:title="My Account Settings"
+        android:icon="@drawable/profile_logo1_background"
+
+        />
+    <item
+        android:id="@+id/my_friends"
+        android:title="My Friends"
+        android:icon="@drawable/profile_logo1_background"
+
+        />
+
+
+
+</menu>

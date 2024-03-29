@@ -32,6 +32,7 @@ public class DiningHallActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
     }
     private void getDiningHallInformation(String diningHallName) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

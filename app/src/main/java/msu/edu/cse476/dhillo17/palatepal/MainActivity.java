@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 
@@ -29,11 +32,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button mapButton = findViewById(R.id.button_map); // Adjust the ID to match your button
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                startActivity(intent);
+            }
+        });
+        Button buttonCaseHall = findViewById(R.id.button_case_hall);
+        Button buttonCowenHall = findViewById(R.id.button_cowen_hall);
+        // Add listeners for each dining hall button
+        buttonCaseHall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDiningHallActivity("CaseHall");
+            }
+        });
+        buttonCowenHall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDiningHallActivity("CowenHall");
+            }
+        });
+
 
         mReview = findViewById(R.id.review);
         mGetReview = findViewById(R.id.firebase);
         mGetReview.setOnClickListener(this);
 
+        Button sidebarButton = (Button) findViewById(R.id.button_sidebar);
+        sidebarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(MainActivity.this, view);
+                popup.getMenuInflater().inflate(R.menu.sidebar_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                            int id = item.getItemId();
+                            if (id == R.id.my_account) {
+
+                            } else if (id == R.id.my_reviews) {
+
+                            } else if (id == R.id.my_dining_halls) {
+
+                            } else if (id == R.id.my_account_settings) {
+
+                            } else if (id == R.id.my_friends) {
+
+                            }
+                            return true;
+                        }
+                });
+                popup.show();
+            }
+        });
     }
 
     @Override
@@ -63,6 +119,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, DiningHallActivity.class);
         // intent.putExtra("dining_hall", diningHall);
         startActivity(intent);
+    }
+    private void openDiningHallActivity(String diningHallName) {
+        Intent intent = new Intent(MainActivity.this, DiningHallActivity.class);
+        intent.putExtra("DINING_HALL_NAME", diningHallName);
+        startActivity(intent);
+    }
+    public void onHomeClick(View view) {
+        // Do nothing to keep the user on the current page
     }
 
 }
