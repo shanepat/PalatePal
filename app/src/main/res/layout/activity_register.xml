@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="msu.edu.cse476.dhillo17.palatepal.RegisterActivity"
+    tools:context=".RegisterActivity"
     android:background="#fdf9f9">
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +51,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/fNameText"
+                android:id="@+id/et_fname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/firstname_reg"
@@ -69,7 +68,7 @@
                 android:textSize="23sp"
                 />
             <EditText
-                android:id="@+id/lNameText"
+                android:id="@+id/et_lname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lastname_reg"
@@ -88,7 +87,7 @@
 
             <EditText
                 android:inputType="textEmailAddress"
-                android:id="@+id/emailText"
+                android:id="@+id/et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email_reg"
@@ -106,25 +105,7 @@
                 />
             <EditText
                 android:inputType="textPassword"
-                android:id="@+id/passwordText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/pwd_reg"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:background="@drawable/search_view_background"
-                android:drawableStart="@drawable/password_icon"
-                android:drawablePadding="20dp"
-                android:padding="10dp"
-                android:textColor="#7f7f7f"
-                android:textColorHint="#7f7f7f"
-                android:textSize="23sp"
-                />
-            <EditText
-                android:inputType="textPassword"
-                android:id="@+id/confirmPwdText"
+                android:id="@+id/et_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/pwd_reg"
