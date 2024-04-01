@@ -45,6 +45,10 @@
     <string name="post_button">Post Button</string>
     <string name="case_hall">Case Hall</string>
     <string name="map_placeholder_description">map</string>
+    <string name="leave_review_text">Leave Review</string>
+    <string name="food_name_default">Insert Name Here</string>
+    <string name="top_review_defualt">No reviews, be the first by reviewing this dish</string>
+    <string name="num_reviews">No Reviews</string>
 
 
 </resources>
