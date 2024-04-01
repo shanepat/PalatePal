@@ -44,6 +44,7 @@
             android:layout_weight="0"
             android:backgroundTint="#00000000"
             android:contentDescription="@string/gps_button_description"
+            android:onClick="onGpsButton"
             app:srcCompat="@drawable/pin_icon" />
 
         <ImageButton
