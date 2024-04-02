@@ -33,7 +33,7 @@ public class DiningHallActivity extends AppCompatActivity {
 
     private TextView mFood;
     private TextView mReview;
-
+    private TextView mMenu;
     private double latitude = 0;
     private double longitude = 0;
     private boolean valid = false;
@@ -53,7 +53,9 @@ public class DiningHallActivity extends AppCompatActivity {
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Log.e("KIKOKIKO", String.valueOf(latitude));
+        mMenu = findViewById(R.id.menu);
 
+        getDiningHallInformation("Case");
         // For older version of Android
         if (Build.VERSION.SDK_INT >= 23) {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -65,29 +67,34 @@ public class DiningHallActivity extends AppCompatActivity {
         }
     }
     private void getDiningHallInformation(String diningHallName) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference diningHallRef = database.getReference("dining_halls").child(diningHallName);
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+////        DatabaseReference diningHallRef = database.getReference("DiningHalls").child(diningHallName);
+//        DatabaseReference diningHallRef = database.getReference("PalatePal").child("DiningHalls").child("Case").child("Menu");
+//        diningHallRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DataSnapshot> task) {
+//                if (!task.isSuccessful()) {
+//                    Log.e("firebase", "Error getting food data", task.getException());
+//                } else {
+//                    mMenu.setText(String.valueOf(task.getResult().getValue()));
+////                    mFood.setText(String.valueOf(task.getResult().getValue()));
+//                }
+//            }
+//        });
 
-        diningHallRef.child("food").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+    }
+
+    public void getReview(View view){
+        String dish = view.getTag().toString();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference diningHallRef = database.getReference("PalatePal").child("DiningHalls").child("Case").child("Dinner").child(dish);
+        diningHallRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting food data", task.getException());
                 } else {
-                    Log.d("firebase", "Food: " + String.valueOf(task.getResult().getValue()));
-                    mFood.setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-
-        diningHallRef.child("review").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting review data", task.getException());
-                } else {
-                    Log.d("firebase", "Review: " + String.valueOf(task.getResult().getValue()));
-                    mReview.setText(String.valueOf(task.getResult().getValue()));
+                    mMenu.setText(String.valueOf(task.getResult().getValue()));
                 }
             }
         });

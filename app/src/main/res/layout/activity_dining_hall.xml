@@ -135,14 +135,39 @@
         android:layout_weight="5"
         android:orientation="vertical">
 
-
-        <ImageView
-            android:id="@+id/imageView"
+        <Button
+            android:id="@+id/mChicken"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:cropToPadding="false"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/food_items" />
+            android:onClick="getReview"
+            android:tag="Chicken"
+            android:text="Chicken" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getReview"
+            android:tag="Burger"
+            android:text="Burger" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getReview"
+            android:tag="Pasta"
+            android:text="Pasta" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="getReview"
+            android:tag="Shrimp"
+            android:text="Shrimp" />
+
+        <TextView
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 </LinearLayout>
