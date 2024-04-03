@@ -119,6 +119,7 @@ public class DiningHallActivity extends AppCompatActivity {
     }
 
     public void onGpsButton(View view) {
+        // TODO: To specific dining hall location and add navigation capability
         String msuLocation = "geo:42.7251,-84.4791";
         String zoomLevel = "?z=14";
 

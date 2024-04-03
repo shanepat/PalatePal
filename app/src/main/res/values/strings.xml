@@ -36,8 +36,8 @@
     <string name="signinbtn_des">Button to Sign In</string>
     <string name="signupbtn_des">Button to Sign Up</string>
     <string name="no_account">Don\'t have Account?</string>
-    <string name ="signup">Sign Up</string>
-    <string name ="logo_des">Logo for PalatePal</string>
+    <string name="signup">Sign Up</string>
+    <string name="logo_des">Logo for PalatePal</string>
     <string name="register_agreement">I agree to the Term of Service and Privacy Policy</string>
     <string name="temp_button">TEMP_ BUTTON</string>
     <string name="textview">TextView</string>
@@ -49,6 +49,7 @@
     <string name="food_name_default">Insert Name Here</string>
     <string name="top_review_defualt">No reviews, be the first by reviewing this dish</string>
     <string name="num_reviews">No Reviews</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 
 </resources>
