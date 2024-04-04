@@ -100,6 +100,8 @@
             android:textSize="20sp" />
     </LinearLayout>
 
+
+
     <LinearLayout
         android:id="@+id/sort_by"
         android:layout_width="match_parent"
@@ -129,45 +131,33 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/reviewed_food_items"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/mChicken"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getReview"
-            android:tag="Chicken"
-            android:text="Chicken" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getReview"
-            android:tag="Burger"
-            android:text="Burger" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getReview"
-            android:tag="Pasta"
-            android:text="Pasta" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="getReview"
-            android:tag="Shrimp"
-            android:text="Shrimp" />
+        android:layout_weight="2">
 
         <TextView
             android:id="@+id/menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF" />
+
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/reviewed_food_items"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+
+
+        <!-- Dynamically created buttons for food items will be added here -->
+
+
+    </LinearLayout>
+
+
+
+
 </LinearLayout>

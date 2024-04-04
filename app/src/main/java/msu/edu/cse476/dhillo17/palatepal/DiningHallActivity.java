@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +28,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DiningHallActivity extends AppCompatActivity {
 
@@ -39,12 +43,76 @@ public class DiningHallActivity extends AppCompatActivity {
     private boolean valid = false;
     private LocationManager locationManager = null;
     private ActiveListener activeListener = new ActiveListener();
+    private DatabaseReference mDatabase;
 
+    private TextView diningHallHeader = null;
+
+    private String mDiningHallName = "Case";
+    private Button breakfastButton;
+    private Button lunchButton;
+    private Button dinnerButton;
+    private String currentMeal = "Breakfast";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dining_hall);
+
+        mDiningHallName = getIntent().getStringExtra("DiningHallName");
+
+
+        // Initialize buttons
+        breakfastButton = findViewById(R.id.breakfast_button);
+        lunchButton = findViewById(R.id.lunch_button);
+        dinnerButton = findViewById(R.id.dinner_button);
+        diningHallHeader = findViewById(R.id.DinningHall);
+        diningHallHeader.setText(mDiningHallName);
+        // Set click listeners for meal selector buttons
+        breakfastButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Display breakfast buttons layout and hide others
+                LinearLayout layout = findViewById(R.id.reviewed_food_items);
+                layout.removeAllViews();
+                currentMeal = "Breakfast";
+                getMenu(currentMeal);
+
+
+            }
+        });
+
+        lunchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Display lunch buttons layout and hide others
+                Log.d("menu", "made it");
+                LinearLayout layout = findViewById(R.id.reviewed_food_items);
+                layout.removeAllViews();
+                currentMeal = "Lunch";
+                getMenu(currentMeal);
+
+
+
+            }
+        });
+
+        dinnerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Display dinner buttons layout and hide others
+                LinearLayout layout = findViewById(R.id.reviewed_food_items);
+                layout.removeAllViews();
+                currentMeal = "Dinner";
+                getMenu(currentMeal);
+
+
+            }
+        });
+
+
+
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -66,6 +134,91 @@ public class DiningHallActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    private void getMenu(String meal){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mDatabase  = database.getReference("PalatePal").child("DiningHalls").child(mDiningHallName).child(meal);
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Iterate through each child of the Dinner node
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    // Get the key (e.g., Burger, Chicken) and value (e.g., Burger was good)
+                    String foodItem = childSnapshot.getKey();
+                    String foodReview = childSnapshot.getValue(String.class);
+
+                    // Create a button dynamically
+                    createButton(foodItem, foodReview);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase", "Error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void displayMenu(String mealType) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference menuRef = database.getReference("PalatePal").child("DiningHalls").child("Case").child(mealType);
+        menuRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                StringBuilder menuText = new StringBuilder();
+                // Iterate through each child of the selected meal type node
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    // Append the food item and review to the menuText StringBuilder
+                    menuText.append(childSnapshot.getKey()).append(": ").append(childSnapshot.getValue(String.class)).append("\n");
+                }
+                // Set the menu text to the TextView
+                TextView menuTextView = findViewById(R.id.menu);
+                menuTextView.setText(menuText.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase", "Error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+
+    private void createButton(final String foodItem, final String foodReview) {
+        LinearLayout layout = null;
+        if(currentMeal.equals("breakfast")){
+            layout = findViewById(R.id.reviewed_food_items);
+
+        }
+        else if(currentMeal.equals("breakfast")){
+            layout = findViewById(R.id.reviewed_food_items);
+
+        }
+        else{
+            layout = findViewById(R.id.reviewed_food_items);
+
+        }
+
+
+        // Create a new button
+        Button button = new Button(this);
+        button.setText(foodItem);
+
+        // Set click listener to show the food review
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show the food review
+                TextView reviewTextView = findViewById(R.id.menu);
+                reviewTextView.setText(foodReview);
+            }
+        });
+
+        // Add the button to the layout
+        layout.addView(button);
+    }
+
     private void getDiningHallInformation(String diningHallName) {
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
 ////        DatabaseReference diningHallRef = database.getReference("DiningHalls").child(diningHallName);
@@ -87,14 +240,15 @@ public class DiningHallActivity extends AppCompatActivity {
     public void getReview(View view){
         String dish = view.getTag().toString();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference diningHallRef = database.getReference("PalatePal").child("DiningHalls").child("Case").child("Dinner").child(dish);
+        DatabaseReference diningHallRef = database.getReference("PalatePal").child("DiningHalls").child("Case").child("Dinner");
         diningHallRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting food data", task.getException());
                 } else {
-                    mMenu.setText(String.valueOf(task.getResult().getValue()));
+                    Log.d("menu", String.valueOf(task.getResult()));
+                    mMenu.setText(String.valueOf(task.getResult()));
                 }
             }
         });

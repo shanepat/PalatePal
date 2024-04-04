@@ -94,44 +94,47 @@
             android:drawableLeft="@drawable/review_1"
             android:onClick="OnTargetedDiningHall"
             android:text="@string/case_hall"
+            android:tag="Case"
+
             tools:ignore="UsingOnClickInXml" />
 
         <Button
-            android:id="@+id/button_cowen_hall"
+            android:id="@+id/button_wilson_hall"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_2"
-            android:text="Case Hall" />
+            android:tag="Wilson"
+            android:text="Wilson Hall" />
 
         <Button
-            android:id="@+id/button_brody_hall"
+            android:id="@+id/button_owen_hall"
             android:layout_width="match_parent"
             android:layout_height="74dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_1"
-            android:text="Case Hall" />
-
+            android:tag="Owen"
+            android:text="Owen Hall" />
         <Button
-            android:id="@+id/button_akers_hall"
+            android:id="@+id/button_shaw_hall"
             android:layout_width="match_parent"
             android:layout_height="77dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_1"
-            android:text="Case Hall" />
-
+            android:tag="Shaw"
+            android:text="Shaw Hall" />
         <Button
-            android:id="@+id/button_shaw_hall"
+            android:id="@+id/button_brody_hall"
             android:layout_width="match_parent"
             android:layout_height="101dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/review_1"
-            android:text="Case Hall" />
-
+            android:tag="Brody"
+            android:text="Brody Hall" />
     </LinearLayout>
 
     <LinearLayout

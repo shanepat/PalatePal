@@ -41,20 +41,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         Button buttonCaseHall = findViewById(R.id.button_case_hall);
-        Button buttonCowenHall = findViewById(R.id.button_cowen_hall);
+        Button button_wilson_hall = findViewById(R.id.button_wilson_hall);
+        Button button_owen_hall = findViewById(R.id.button_owen_hall);
+        Button button_shaw_hall = findViewById(R.id.button_shaw_hall);
+        Button button_brody_hall = findViewById(R.id.button_brody_hall);
+
         // Add listeners for each dining hall button
         buttonCaseHall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDiningHallActivity("CaseHall");
+                openDiningHallActivity("Case");
             }
         });
-        buttonCowenHall.setOnClickListener(new View.OnClickListener() {
+
+        button_wilson_hall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDiningHallActivity("CowenHall");
+                openDiningHallActivity("Wilson");
             }
         });
+        button_owen_hall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDiningHallActivity("Owen");
+            }
+        });
+        button_shaw_hall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDiningHallActivity("Shaw");
+            }
+        });
+        button_brody_hall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDiningHallActivity("Brody");
+            }
+        });
+
 
 
         mReview = findViewById(R.id.review);
@@ -115,14 +139,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // TODO: Still need to work on this
+    //chat
     public void OnTargetedDiningHall(View view) {
+        // Get the dining hall name from the clicked button's tag
+        String diningHallName = view.getTag().toString();
+
+        // Start the DiningHallActivity and pass the dining hall name as an extra
         Intent intent = new Intent(this, DiningHallActivity.class);
-        // intent.putExtra("dining_hall", diningHall);
+        intent.putExtra("DiningHallName", diningHallName);
         startActivity(intent);
     }
+
     private void openDiningHallActivity(String diningHallName) {
+
         Intent intent = new Intent(MainActivity.this, DiningHallActivity.class);
-        intent.putExtra("DINING_HALL_NAME", diningHallName);
+        intent.putExtra("DiningHallName", diningHallName);
         startActivity(intent);
     }
     public void onHomeClick(View view) {
