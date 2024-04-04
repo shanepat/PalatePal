@@ -23,7 +23,6 @@
         <item>Most Rated</item>
         <item>Least Rated</item>
     </string-array>
-
     <string name="email_login">Email</string>
     <string name="password_login">Password</string>
     <string name="email_reg">Email*</string>
@@ -50,6 +49,9 @@
     <string name="top_review_defualt">No reviews, be the first by reviewing this dish</string>
     <string name="num_reviews">No Reviews</string>
     <string name="title_activity_maps">MapsActivity</string>
-
-
+    <string name="leaveReview">Leave a review below and submit by giving it a star rating:</string>
+    <string name="leaveReviewPlaceholder">What did you like or dislike?</string>
+    <string name="reviewUser">Insert Username Here</string>
+    <string name="reviewText">Insert review text here</string>
+    <string name="noLikes">Be the first to like this review</string>
 </resources>
