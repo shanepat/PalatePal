@@ -3,6 +3,8 @@ package msu.edu.cse476.dhillo17.palatepal;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +23,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -204,9 +207,13 @@ public class DiningHallActivity extends AppCompatActivity {
         TextView reviewTextView = new TextView(this);
         reviewTextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         reviewTextView.setText(foodReview);
+      //  reviewLayout.addView(reviewTextView);
+
+        reviewTextView.setTextColor(Color.parseColor("#FFFDD0"));
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.lunch_fox); // Replace 'your_font_name' with your actual font file name
+        reviewTextView.setTypeface(typeface);
+
         reviewLayout.addView(reviewTextView);
-
-
         layout.addView(reviewLayout);
 
 
