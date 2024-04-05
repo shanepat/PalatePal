@@ -2,37 +2,30 @@
 
 
 
-    <item
-        android:id="@+id/my_account"
-        android:title="My Account"
-        android:icon="@drawable/profile_logo1_background"
-
-    />
-    <item
-        android:id="@+id/my_reviews"
-        android:title="My Reviews"
-        android:icon="@drawable/profile_logo1_background"
-
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home_button"
+            android:title="Home"
         />
-    <item
-        android:id="@+id/my_dining_halls"
-        android:title="My Dining Halls"
-        android:icon="@drawable/profile_logo1_background"
+        <item
+            android:id="@+id/my_account"
+            android:icon="@drawable/baseline_account_circle_24"
+            android:title="My Account"
+            />
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/map_button"
+            android:title="Map"
+            />
 
-        />
-    <item
-        android:id="@+id/my_account_settings"
-        android:title="My Account Settings"
-        android:icon="@drawable/profile_logo1_background"
+        <item
+            android:id="@+id/log_out"
+            android:icon="@drawable/baseline_arrow_outward_24"
+            android:title="Log Out"
+            />
 
-        />
-    <item
-        android:id="@+id/my_friends"
-        android:title="My Friends"
-        android:icon="@drawable/profile_logo1_background"
-
-        />
-
+    </group>
 
 
 </menu>

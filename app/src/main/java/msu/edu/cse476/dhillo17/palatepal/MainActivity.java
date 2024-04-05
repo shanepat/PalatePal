@@ -2,6 +2,7 @@ package msu.edu.cse476.dhillo17.palatepal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +13,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button mGetReview;
     private TextView mReview;
+    FirebaseAuth firebaseAuth;
 
 
     @Override
@@ -32,14 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button mapButton = findViewById(R.id.button_map); // Adjust the ID to match your button
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                startActivity(intent);
-            }
-        });
+        firebaseAuth = FirebaseAuth.getInstance();
+
         Button buttonCaseHall = findViewById(R.id.button_case_hall);
         Button button_wilson_hall = findViewById(R.id.button_wilson_hall);
         Button button_owen_hall = findViewById(R.id.button_owen_hall);
@@ -85,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGetReview = findViewById(R.id.firebase);
         mGetReview.setOnClickListener(this);
 
+
         Button sidebarButton = (Button) findViewById(R.id.button_sidebar);
         sidebarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,18 +96,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public boolean onMenuItemClick(MenuItem item) {
 
                             int id = item.getItemId();
+
                             if (id == R.id.my_account) {
-
-                            } else if (id == R.id.my_reviews) {
-
-                            } else if (id == R.id.my_dining_halls) {
-
-                            } else if (id == R.id.my_account_settings) {
-
-                            } else if (id == R.id.my_friends) {
-
+//                                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+//                                startActivity(intent);
                             }
-                            return true;
+                            else if (id== R.id.nav_home) {
+                                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                            else if (id== R.id.nav_map) {
+                                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                                startActivity(intent);
+                            }
+                            else if (id== R.id.log_out) {
+                                firebaseAuth.signOut();
+                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                finish();
+                            }
+                        return true;
                         }
                 });
                 popup.show();

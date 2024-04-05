@@ -1,184 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFFFFF">
-
-
-
-    <Button
-        android:id="@+id/firebase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/temp_button"
-        tools:ignore="UsingOnClickInXml" />
-
-    <TextView
-        android:id="@+id/review"
+    tools:context=".MainActivity">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/textview" />
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
 
-    <LinearLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <ImageView
-            android:id="@+id/logo"
+        <Button
+            android:id="@+id/firebase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo"
-            android:contentDescription="@string/logo" />
+            android:onClick="onClick"
+            android:text="@string/temp_button"
+            tools:ignore="UsingOnClickInXml" />
 
-        <ImageButton
-            android:id="@+id/post_button"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/review"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:text="@string/textview" />
+
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logo"
+                android:contentDescription="@string/logo" />
+
+            <ImageButton
+                android:id="@+id/post_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:background="@null"
+                android:contentDescription="@string/post_button"
+                android:scaleType="centerCrop"
+                android:src="@drawable/post_button" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:background="@null"
-            android:contentDescription="@string/post_button"
-            android:scaleType="centerCrop"
-            android:src="@drawable/post_button" />
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/editTextSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/search_view_background"
-        android:drawableEnd="@drawable/vector"
-        android:drawablePadding="10dp"
-        android:hint="@string/select_dining_hall"
-        android:padding="12dp"
-        android:singleLine="true"
-        android:layout_below="@+id/header"
-        android:layout_marginTop="8dp"
-        android:inputType="text" />
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/search_view_background"
+            android:drawableEnd="@drawable/vector"
+            android:drawablePadding="10dp"
+            android:hint="@string/select_dining_hall"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="8dp"
+            android:inputType="text" />
 
 
-    <TextView
-        android:id="@+id/tvSectionTitle"
+        <TextView
+            android:id="@+id/tvSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="139dp"
+            android:padding="16dp"
+            android:text="Dining Halls.."
+            android:textSize="24sp"
+            tools:ignore="NotSibling" />
+
+        <LinearLayout
+            android:id="@+id/llDiningHalls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editTextSearch"
+            android:layout_marginTop="31dp"
+            android:orientation="vertical"
+            android:weightSum="5">
+
+            <Button
+                android:id="@+id/button_case_hall"
+                android:layout_width="match_parent"
+                android:layout_height="81dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/review_1"
+                android:onClick="OnTargetedDiningHall"
+                android:text="@string/case_hall"
+                android:tag="Case"
+
+                tools:ignore="UsingOnClickInXml" />
+
+            <Button
+                android:id="@+id/button_wilson_hall"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/review_2"
+                android:tag="Wilson"
+                android:text="Wilson Hall" />
+
+            <Button
+                android:id="@+id/button_owen_hall"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/review_1"
+                android:tag="Owen"
+                android:text="Owen Hall" />
+            <Button
+                android:id="@+id/button_shaw_hall"
+                android:layout_width="match_parent"
+                android:layout_height="77dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/review_1"
+                android:tag="Shaw"
+                android:text="Shaw Hall" />
+            <Button
+                android:id="@+id/button_brody_hall"
+                android:layout_width="match_parent"
+                android:layout_height="101dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/review_1"
+                android:tag="Brody"
+                android:text="Brody Hall" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:gravity="end"
+            android:background="@color/cardview_light_background">
+
+
+            <Button
+                android:id="@+id/button_sidebar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/sidebar_button" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/naviView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="139dp"
-        android:padding="16dp"
-        android:text="Dining Halls.."
-        android:textSize="24sp"
-        tools:ignore="NotSibling" />
-
-    <LinearLayout
-        android:id="@+id/llDiningHalls"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextSearch"
-        android:layout_marginTop="31dp"
-        android:orientation="vertical"
-        android:weightSum="5">
-
-        <Button
-            android:id="@+id/button_case_hall"
-            android:layout_width="match_parent"
-            android:layout_height="81dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/review_1"
-            android:onClick="OnTargetedDiningHall"
-            android:text="@string/case_hall"
-            android:tag="Case"
-
-            tools:ignore="UsingOnClickInXml" />
-
-        <Button
-            android:id="@+id/button_wilson_hall"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/review_2"
-            android:tag="Wilson"
-            android:text="Wilson Hall" />
-
-        <Button
-            android:id="@+id/button_owen_hall"
-            android:layout_width="match_parent"
-            android:layout_height="74dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/review_1"
-            android:tag="Owen"
-            android:text="Owen Hall" />
-        <Button
-            android:id="@+id/button_shaw_hall"
-            android:layout_width="match_parent"
-            android:layout_height="77dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/review_1"
-            android:tag="Shaw"
-            android:text="Shaw Hall" />
-        <Button
-            android:id="@+id/button_brody_hall"
-            android:layout_width="match_parent"
-            android:layout_height="101dp"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/review_1"
-            android:tag="Brody"
-            android:text="Brody Hall" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/bottom_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:background="@color/cardview_light_background">
-
-        <Button
-            android:id="@+id/button_home"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/home_button"
-            android:onClick="onHomeClick"
-            tools:ignore="UsingOnClickInXml" />
-
-        <Button
-            android:id="@+id/button_map"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/map_button" />
-
-        <Button
-            android:id="@+id/button_message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/message_button" />
-
-        <Button
-            android:id="@+id/button_sidebar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/sidebar_button" />
-
-    </LinearLayout>
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        app:menu="@menu/sidebar_menu"/>
+</androidx.drawerlayout.widget.DrawerLayout>
