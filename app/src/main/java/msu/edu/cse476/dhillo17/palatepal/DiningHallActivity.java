@@ -186,37 +186,41 @@ public class DiningHallActivity extends AppCompatActivity {
 
 
     private void createButton(final String foodItem, final String foodReview) {
-        LinearLayout layout = null;
-        if(currentMeal.equals("breakfast")){
-            layout = findViewById(R.id.reviewed_food_items);
-
-        }
-        else if(currentMeal.equals("breakfast")){
-            layout = findViewById(R.id.reviewed_food_items);
-
-        }
-        else{
-            layout = findViewById(R.id.reviewed_food_items);
-
-        }
+        final LinearLayout layout = findViewById(R.id.reviewed_food_items);
 
 
-        // Create a new button
-        Button button = new Button(this);
+        final Button button = new Button(this);
+        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         button.setText(foodItem);
+        layout.addView(button);
 
-        // Set click listener to show the food review
+
+        final LinearLayout reviewLayout = new LinearLayout(this);
+        reviewLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        reviewLayout.setOrientation(LinearLayout.VERTICAL);
+        reviewLayout.setVisibility(View.GONE);
+
+
+        TextView reviewTextView = new TextView(this);
+        reviewTextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        reviewTextView.setText(foodReview);
+        reviewLayout.addView(reviewTextView);
+
+
+        layout.addView(reviewLayout);
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Show the food review
-                TextView reviewTextView = findViewById(R.id.menu);
-                reviewTextView.setText(foodReview);
+                // Toggle visibility
+                if (reviewLayout.getVisibility() == View.GONE) {
+                    reviewLayout.setVisibility(View.VISIBLE);
+                } else {
+                    reviewLayout.setVisibility(View.GONE);
+                }
             }
         });
-
-        // Add the button to the layout
-        layout.addView(button);
     }
 
     private void getDiningHallInformation(String diningHallName) {
