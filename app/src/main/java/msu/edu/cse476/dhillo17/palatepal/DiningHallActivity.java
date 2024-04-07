@@ -126,7 +126,6 @@ public class DiningHallActivity extends AppCompatActivity {
         Log.e("KIKOKIKO", String.valueOf(latitude));
         mMenu = findViewById(R.id.menu);
 
-        getDiningHallInformation("Case");
         // For older version of Android
         if (Build.VERSION.SDK_INT >= 23) {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -228,24 +227,6 @@ public class DiningHallActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void getDiningHallInformation(String diningHallName) {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-////        DatabaseReference diningHallRef = database.getReference("DiningHalls").child(diningHallName);
-//        DatabaseReference diningHallRef = database.getReference("PalatePal").child("DiningHalls").child("Case").child("Menu");
-//        diningHallRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (!task.isSuccessful()) {
-//                    Log.e("firebase", "Error getting food data", task.getException());
-//                } else {
-//                    mMenu.setText(String.valueOf(task.getResult().getValue()));
-////                    mFood.setText(String.valueOf(task.getResult().getValue()));
-//                }
-//            }
-//        });
-
     }
 
     public void getReview(View view){
