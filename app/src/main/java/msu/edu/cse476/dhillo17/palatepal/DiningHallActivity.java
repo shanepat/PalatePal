@@ -265,16 +265,10 @@ public class DiningHallActivity extends AppCompatActivity {
     }
 
     public void onGpsButton(View view) {
-        // TODO: To specific dining hall location and add navigation capability
-        String msuLocation = "geo:42.7251,-84.4791";
-        String zoomLevel = "?z=14";
-
-        Uri gmmIntentUri = Uri.parse(msuLocation + zoomLevel);
+        Uri gmmIntentUri = Uri.parse(String.format("google.navigation:q=%s", mDiningHallName));
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
-        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(mapIntent);
-        }
+        startActivity(mapIntent);
     }
 
     private void onLocation(Location location) {
