@@ -43,10 +43,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         LatLng msu = new LatLng(42.7251, -84.4791);
-        mMap.addMarker(new MarkerOptions().position(msu).title("Marker at Michigan State!"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(msu));
-        // TODO: add markers to all dining halls
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(msu, 13.4F));
+
+        LatLng akersHall = new LatLng(42.724339,-84.4673472);
+        LatLng brodyHall = new LatLng(42.7315271,-84.4981952);
+        LatLng caseHall = new LatLng(42.7244014,-84.4910327);
+        LatLng holdenHall = new LatLng(42.7210965,-84.4911708);
+        LatLng holmesHall = new LatLng(42.7266646,-84.4672193);
+        LatLng landonHall = new LatLng(42.7338948,-84.4877161);
+        LatLng owenHall = new LatLng(42.726141,-84.4733858);
+        LatLng shawHall = new LatLng(42.7267227,-84.4778785);
+        LatLng snyphiHall = new LatLng(42.7306801,-84.4755716);
+        mMap.addMarker(new MarkerOptions().position(akersHall).title("Marker at Akers Hall!"));
+        mMap.addMarker(new MarkerOptions().position(brodyHall).title("Marker at Broday Hall!"));
+        mMap.addMarker(new MarkerOptions().position(caseHall).title("Marker at Case Hall!"));
+        mMap.addMarker(new MarkerOptions().position(holdenHall).title("Marker at Holden Hall!"));
+        mMap.addMarker(new MarkerOptions().position(holmesHall).title("Marker at Holmes Hall!"));
+        mMap.addMarker(new MarkerOptions().position(landonHall).title("Marker at Landon Hall!"));
+        mMap.addMarker(new MarkerOptions().position(owenHall).title("Marker at Owen Hall!"));
+        mMap.addMarker(new MarkerOptions().position(shawHall).title("Marker at Shaw Hall!"));
+        mMap.addMarker(new MarkerOptions().position(snyphiHall).title("Marker at Sny-Phi Hall!"));
     }
 }
