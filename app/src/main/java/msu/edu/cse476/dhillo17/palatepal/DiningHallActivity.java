@@ -126,7 +126,6 @@ public class DiningHallActivity extends AppCompatActivity {
         Log.e("KIKOKIKO", String.valueOf(latitude));
         mMenu = findViewById(R.id.menu);
 
-        getDiningHallInformation("Case");
         // For older version of Android
         if (Build.VERSION.SDK_INT >= 23) {
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
@@ -230,24 +229,6 @@ public class DiningHallActivity extends AppCompatActivity {
         });
     }
 
-    private void getDiningHallInformation(String diningHallName) {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-////        DatabaseReference diningHallRef = database.getReference("DiningHalls").child(diningHallName);
-//        DatabaseReference diningHallRef = database.getReference("PalatePal").child("DiningHalls").child("Case").child("Menu");
-//        diningHallRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if (!task.isSuccessful()) {
-//                    Log.e("firebase", "Error getting food data", task.getException());
-//                } else {
-//                    mMenu.setText(String.valueOf(task.getResult().getValue()));
-////                    mFood.setText(String.valueOf(task.getResult().getValue()));
-//                }
-//            }
-//        });
-
-    }
-
     public void getReview(View view){
         String dish = view.getTag().toString();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -284,16 +265,10 @@ public class DiningHallActivity extends AppCompatActivity {
     }
 
     public void onGpsButton(View view) {
-        // TODO: To specific dining hall location and add navigation capability
-        String msuLocation = "geo:42.7251,-84.4791";
-        String zoomLevel = "?z=14";
-
-        Uri gmmIntentUri = Uri.parse(msuLocation + zoomLevel);
+        Uri gmmIntentUri = Uri.parse(String.format("google.navigation:q=%s", mDiningHallName));
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
-        if (mapIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(mapIntent);
-        }
+        startActivity(mapIntent);
     }
 
     private void onLocation(Location location) {
