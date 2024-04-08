@@ -34,24 +34,13 @@
                 android:textSize="20sp"/>
 
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:gravity="end"
-            android:background="@color/cardview_light_background">
-
-
-            <Button
-                android:id="@+id/button_sidebar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawableTop="@drawable/sidebar_button" />
-
-        </LinearLayout>
+    <ImageButton
+        android:id="@+id/button_sidebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/sidebar_button" />
 
 </RelativeLayout>
 <!--    <com.google.android.material.navigation.NavigationView-->

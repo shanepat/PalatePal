@@ -1,7 +1,11 @@
 package msu.edu.cse476.dhillo17.palatepal;
 
+import msu.edu.cse476.dhillo17.palatepal.R;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
@@ -11,13 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -25,10 +29,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 //button code from:
 //        https://www.geeksforgeeks.org/handling-click-events-button-android/
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private Button mGetReview;
     private TextView mReview;
     FirebaseAuth firebaseAuth;
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
+
 
 
     @Override
@@ -83,44 +92,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGetReview = findViewById(R.id.firebase);
         mGetReview.setOnClickListener(this);
 
+        drawerLayout=findViewById(R.id.drawer_layout);
+        navigationView=findViewById(R.id.nav_view);
+        toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        Button sidebarButton = (Button) findViewById(R.id.button_sidebar);
-        sidebarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(MainActivity.this, view);
-                popup.getMenuInflater().inflate(R.menu.sidebar_menu, popup.getMenu());
+        navigationView.bringToFront();
 
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
+        ActionBarDrawerToggle toggle=new
+                ActionBarDrawerToggle(this,drawerLayout, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
 
-                            int id = item.getItemId();
 
-                            if (id == R.id.my_account) {
-//                                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-//                                startActivity(intent);
-                            }
-                            else if (id== R.id.nav_home) {
-                                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                            else if (id== R.id.nav_map) {
-                                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-                                startActivity(intent);
-                            }
-                            else if (id== R.id.log_out) {
-                                firebaseAuth.signOut();
-                                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                                finish();
-                            }
-                        return true;
-                        }
-                });
-                popup.show();
-            }
-        });
     }
+    @Override
+    public void onBackPressed()  {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        if (menuItem.getItemId() == R.id.nav_home) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        } else if (menuItem.getItemId() == R.id.my_account) {
+            Intent profileIntent = new Intent(MainActivity.this, AccountActivity.class);
+            startActivity(profileIntent);
+        } else if (menuItem.getItemId() == R.id.nav_map) {
+            Intent mapIntent = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(mapIntent);
+            return true;
+        } else if (menuItem.getItemId() == R.id.log_out) {
+            firebaseAuth.signOut();
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish();
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 
     @Override
     public void onClick(View view)

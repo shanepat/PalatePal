@@ -54,4 +54,7 @@
     <string name="reviewUser">Insert Username Here</string>
     <string name="reviewText">Insert review text here</string>
     <string name="noLikes">Be the first to like this review</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navi">Close</string>
 </resources>
