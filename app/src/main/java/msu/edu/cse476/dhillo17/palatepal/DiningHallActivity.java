@@ -1,6 +1,7 @@
 package msu.edu.cse476.dhillo17.palatepal;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -12,15 +13,18 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -114,6 +118,7 @@ public class DiningHallActivity extends AppCompatActivity {
 
 
 
+        getMenu("Breakfast");
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -124,7 +129,6 @@ public class DiningHallActivity extends AppCompatActivity {
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Log.e("KIKOKIKO", String.valueOf(latitude));
-        mMenu = findViewById(R.id.menu);
 
         // For older version of Android
         if (Build.VERSION.SDK_INT >= 23) {
@@ -175,8 +179,6 @@ public class DiningHallActivity extends AppCompatActivity {
                     menuText.append(childSnapshot.getKey()).append(": ").append(childSnapshot.getValue(String.class)).append("\n");
                 }
                 // Set the menu text to the TextView
-                TextView menuTextView = findViewById(R.id.menu);
-                menuTextView.setText(menuText.toString());
             }
 
             @Override
@@ -190,31 +192,74 @@ public class DiningHallActivity extends AppCompatActivity {
     private void createButton(final String foodItem, final String foodReview) {
         final LinearLayout layout = findViewById(R.id.reviewed_food_items);
 
+        // Create a horizontal LinearLayout to hold the menu item button and the "Create Review" button
+        final LinearLayout buttonLayout = new LinearLayout(this);
+        buttonLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
 
+        // Create the menu item button
         final Button button = new Button(this);
-        button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        button.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
         button.setText(foodItem);
-        layout.addView(button);
+        buttonLayout.addView(button);
 
+        // Create the "Create Review" button
+        final Button reviewButton = new Button(this);
+        reviewButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        reviewButton.setText("Create Review");
+        buttonLayout.addView(reviewButton);
+
+        layout.addView(buttonLayout);
 
         final LinearLayout reviewLayout = new LinearLayout(this);
         reviewLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         reviewLayout.setOrientation(LinearLayout.VERTICAL);
         reviewLayout.setVisibility(View.GONE);
 
-
+        // Create the TextView for the review text
         TextView reviewTextView = new TextView(this);
         reviewTextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        reviewTextView.setText(foodReview);
-      //  reviewLayout.addView(reviewTextView);
-
+        reviewTextView.setText(foodReview);  // Set the review text
         reviewTextView.setTextColor(Color.parseColor("#FFFDD0"));
-        Typeface typeface = ResourcesCompat.getFont(this, R.font.lunch_fox); // Replace 'your_font_name' with your actual font file name
+        Typeface typeface = ResourcesCompat.getFont(this, R.font.lunch_fox);
         reviewTextView.setTypeface(typeface);
-
+        reviewTextView.setTag(foodItem);  // Using foodItem as the tag
         reviewLayout.addView(reviewTextView);
         layout.addView(reviewLayout);
 
+        // Set OnClickListener for the "Create Review" button
+        reviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a custom dialog with a text field and a submit button
+                AlertDialog.Builder builder = new AlertDialog.Builder(DiningHallActivity.this);
+                builder.setTitle("Create Review");
+
+                // Set up the input
+                final EditText input = new EditText(DiningHallActivity.this);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String reviewText = input.getText().toString().trim();
+                        addReview(foodItem, "\nUsername: " + reviewText );
+                        // Save the review or perform any other action here
+                        Toast.makeText(DiningHallActivity.this, "Review submitted: " + reviewText, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,6 +273,58 @@ public class DiningHallActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void addReview(String dish, String review) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference diningHallRef = database.getReference("PalatePal").child("DiningHalls").child(mDiningHallName).child(currentMeal).child(dish);
+
+        // Append the new review to the existing reviews (if any)
+        diningHallRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String existingReviews = dataSnapshot.getValue(String.class);
+                if (existingReviews != null) {
+                    // Append the new review to the existing ones, separated by a delimiter (e.g., newline)
+                    String newReviews = existingReviews + "\n" + review;
+                    // Update the database with the new reviews
+                    diningHallRef.setValue(newReviews);
+                    updateReviewText(dish, newReviews);
+                } else {
+                    // If there are no existing reviews, just set the new review as the value
+                    diningHallRef.setValue(review);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase", "Error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    private void updateReviewText(String dish, String review) {
+        LinearLayout layout = findViewById(R.id.reviewed_food_items);
+
+        // Find the review TextView by tag (assuming the dish name is unique)
+        TextView reviewTextView = layout.findViewWithTag(dish);
+
+        // Update the text of the review TextView
+        if (reviewTextView != null) {
+            reviewTextView.setText(review);
+        }
+    }
+
+    private void refreshPage() {
+        // Clear the current menu and reviews
+        LinearLayout layout = findViewById(R.id.reviewed_food_items);
+        layout.removeAllViews();
+        mMenu.setText("");
+
+        // Re-fetch the menu for the current meal
+        getMenu(currentMeal);
+    }
+
+
 
     public void getReview(View view){
         String dish = view.getTag().toString();
