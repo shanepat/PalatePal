@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "845742797864",
+    "firebase_url": "https://palatepaldb-default-rtdb.firebaseio.com",
     "project_id": "palatepaldb",
     "storage_bucket": "palatepaldb.appspot.com"
   },
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDzCYWVHDanpYfypLL60sD6Ek33pYdf"
+          "current_key": "AIzaSyDzCYWVHDanpYfypLL60sD6Ek33pYdf_fc"
         }
       ],
       "services": {

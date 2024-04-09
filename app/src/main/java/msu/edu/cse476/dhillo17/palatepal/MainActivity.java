@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,12 +33,12 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private Button mGetReview;
     private TextView mReview;
-    FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
+    public static final String SHARED_PREFS = "sharedPrefs";
 
 
     @Override
@@ -131,7 +132,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(mapIntent);
             return true;
         } else if (menuItem.getItemId() == R.id.log_out) {
-            firebaseAuth.signOut();
+
+            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("name", "");
+            editor.apply();
+
+            FirebaseAuth.getInstance().signOut();
             Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(loginIntent);
             finish();
