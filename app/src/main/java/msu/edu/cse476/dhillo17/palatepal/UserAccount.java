@@ -8,8 +8,7 @@ public class UserAccount {
     private String idToken;
     private String emailId;
     private String password;
-    private String firstName;
-    private String lastName;
+    private String userName;
 
     public UserAccount() { }
 
@@ -21,13 +20,10 @@ public class UserAccount {
 
     public void setPassword(String password) {this.password = password;}
 
-    public String getFirstName() {return firstName;}
+    public String getName() {return userName;}
 
-    public void setFirstName(String firstName) {this.firstName = firstName;}
+    public void setName(String name) {this.userName =name;}
 
-    public String getLastName() {return lastName;}
-
-    public void setLastName(String lastName) {this.lastName = lastName;}
 
     public String getIdToken() {return idToken;}
 

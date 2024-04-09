@@ -50,28 +50,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
             <EditText
-                android:id="@+id/et_fname"
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/firstname_reg"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="40dp"
-                android:background="@drawable/search_view_background"
-                android:drawableStart="@drawable/arrow_icon"
-                android:drawablePadding="20dp"
-                android:padding="10dp"
-                android:textColor="#7f7f7f"
-                android:textColorHint="#7f7f7f"
-                android:textSize="23sp"
-                />
-            <EditText
-                android:id="@+id/et_lname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/lastname_reg"
+                android:hint="@string/name_reg"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginStart="40dp"

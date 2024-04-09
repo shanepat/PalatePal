@@ -17,6 +17,7 @@ import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;                     // Firebase Authentication
     private DatabaseReference mDatabaseRef;                 // Realtime Database
-    private EditText mEtFName, mEtLName, mEtEmail, mEtPwd;  // User Info
+    private EditText mEtName, mEtEmail, mEtPwd;  // User Info
     private ImageButton mBtnRegister;                       // Register button
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("PalatePal");
 
-        mEtFName = findViewById(R.id.et_fname);
-        mEtLName = findViewById(R.id.et_lname);
+        mEtName = findViewById(R.id.et_name);
         mEtEmail = findViewById(R.id.et_email);
         mEtPwd = findViewById(R.id.et_pwd);
 
@@ -47,8 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view)
             {
                 // Register processing
-                String strFName = mEtFName.getText().toString();
-                String strLName = mEtLName.getText().toString();
+                String strName = mEtName.getText().toString();
                 String strEmail = mEtEmail.getText().toString();
                 String strPwd = mEtPwd.getText().toString();
 
@@ -61,10 +60,12 @@ public class RegisterActivity extends AppCompatActivity {
                     {
                         if (task.isSuccessful()){
                             FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(strName) // Set the display name here
+                                    .build();
                             UserAccount account = new UserAccount();
                             account.setIdToken(firebaseUser.getUid());
-                            account.setFirstName(strFName);
-                            account.setLastName(strLName);
+                            account.setName(strName);
                             account.setEmailId(firebaseUser.getEmail());
                             account.setPassword(strPwd);
                             mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
