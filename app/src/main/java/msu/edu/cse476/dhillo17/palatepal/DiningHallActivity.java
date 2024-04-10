@@ -14,15 +14,19 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +43,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.time.LocalTime;
+import java.util.Objects;
 
 public class DiningHallActivity extends AppCompatActivity {
 
@@ -58,7 +65,11 @@ public class DiningHallActivity extends AppCompatActivity {
     private Button breakfastButton;
     private Button lunchButton;
     private Button dinnerButton;
-    private String currentMeal = "Breakfast";
+    private String currentMeal;
+    private int alternatingColor;
+    private final int lightGreen = Color.rgb(0,40,20);
+    private final int darkGreen = Color.rgb(32,68,60);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +77,6 @@ public class DiningHallActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dining_hall);
 
         mDiningHallName = getIntent().getStringExtra("DiningHallName");
-
 
         // Initialize buttons
         breakfastButton = findViewById(R.id.breakfast_button);
@@ -82,8 +92,8 @@ public class DiningHallActivity extends AppCompatActivity {
                 LinearLayout layout = findViewById(R.id.reviewed_food_items);
                 layout.removeAllViews();
                 currentMeal = "Breakfast";
-                getMenu(currentMeal);
-
+                getMenu();
+                updateMealUI();
 
             }
         });
@@ -96,8 +106,8 @@ public class DiningHallActivity extends AppCompatActivity {
                 LinearLayout layout = findViewById(R.id.reviewed_food_items);
                 layout.removeAllViews();
                 currentMeal = "Lunch";
-                getMenu(currentMeal);
-
+                getMenu();
+                updateMealUI();
 
 
             }
@@ -110,15 +120,18 @@ public class DiningHallActivity extends AppCompatActivity {
                 LinearLayout layout = findViewById(R.id.reviewed_food_items);
                 layout.removeAllViews();
                 currentMeal = "Dinner";
-                getMenu(currentMeal);
-
+                getMenu();
+                updateMealUI();
 
             }
         });
 
-
-
-        getMenu("Breakfast");
+        findViewById(R.id.back_arrow_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -139,12 +152,47 @@ public class DiningHallActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             }
         }
+
+        // Default value
+        currentMeal = "Dinner";
+        // Get the meal based on time of day
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalTime currentTime = LocalTime.now();
+            LocalTime elevenAM = LocalTime.of(11,0);
+            LocalTime threePM = LocalTime.of(15,0);
+
+            if(currentTime.isBefore(elevenAM))
+            {
+                currentMeal = "Breakfast";
+            } else if (currentTime.isAfter(threePM)) {
+                currentMeal = "Dinner";
+            } else {
+                currentMeal = "Lunch";
+            }
+        }
+        updateMealUI();
+        getMenu();
     }
 
+    private void updateMealUI()
+    {
+        int grey = Color.rgb(38,38,38);
+        int white = Color.rgb(255,255,255);
+        breakfastButton.setTextColor(grey);
+        lunchButton.setTextColor(grey);
+        dinnerButton.setTextColor(grey);
+        if(Objects.equals(currentMeal, "Breakfast")) {
+            breakfastButton.setTextColor(white);
+        } else if (Objects.equals(currentMeal, "Lunch")) {
+            lunchButton.setTextColor(white);
+        } else if (Objects.equals(currentMeal, "Dinner")) {
+            dinnerButton.setTextColor(white);
+        }
+    }
 
-    private void getMenu(String meal){
+    private void getMenu(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mDatabase  = database.getReference("PalatePal").child("DiningHalls").child(mDiningHallName).child(meal);
+        mDatabase  = database.getReference("PalatePal").child("DiningHalls").child(mDiningHallName).child(currentMeal);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -188,47 +236,29 @@ public class DiningHallActivity extends AppCompatActivity {
         });
     }
 
+    private int nextAlternatingColor()
+    {
+        if(alternatingColor == 0 || alternatingColor == darkGreen)
+        {
+            alternatingColor = lightGreen;
+        } else if (alternatingColor == lightGreen) {
+            alternatingColor = darkGreen;
+        }
+        return alternatingColor;
+    }
 
     private void createButton(final String foodItem, final String foodReview) {
         final LinearLayout layout = findViewById(R.id.reviewed_food_items);
+        LinearLayout foodView = new FoodItem(this, foodItem, foodReview, 5.0,
+                1, mDiningHallName, currentMeal);
+        foodView.setBackgroundColor(nextAlternatingColor());
+        layout.addView(foodView);
 
-        // Create a horizontal LinearLayout to hold the menu item button and the "Create Review" button
-        final LinearLayout buttonLayout = new LinearLayout(this);
-        buttonLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
+        // Was create review, has been moved to foodView
+        // Will need to change this to making it switch to the activity for the food item
+        /*
+        foodView.setOnClickListener(new View.OnClickListener() {
 
-        // Create the menu item button
-        final Button button = new Button(this);
-        button.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1));
-        button.setText(foodItem);
-        buttonLayout.addView(button);
-
-        // Create the "Create Review" button
-        final Button reviewButton = new Button(this);
-        reviewButton.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        reviewButton.setText("Create Review");
-        buttonLayout.addView(reviewButton);
-
-        layout.addView(buttonLayout);
-
-        final LinearLayout reviewLayout = new LinearLayout(this);
-        reviewLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        reviewLayout.setOrientation(LinearLayout.VERTICAL);
-        reviewLayout.setVisibility(View.GONE);
-
-        // Create the TextView for the review text
-        TextView reviewTextView = new TextView(this);
-        reviewTextView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        reviewTextView.setText(foodReview);  // Set the review text
-        reviewTextView.setTextColor(Color.parseColor("#FFFDD0"));
-        Typeface typeface = ResourcesCompat.getFont(this, R.font.lunch_fox);
-        reviewTextView.setTypeface(typeface);
-        reviewTextView.setTag(foodItem);  // Using foodItem as the tag
-        reviewLayout.addView(reviewTextView);
-        layout.addView(reviewLayout);
-
-        // Set OnClickListener for the "Create Review" button
-        reviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Create a custom dialog with a text field and a submit button
@@ -260,18 +290,7 @@ public class DiningHallActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Toggle visibility
-                if (reviewLayout.getVisibility() == View.GONE) {
-                    reviewLayout.setVisibility(View.VISIBLE);
-                } else {
-                    reviewLayout.setVisibility(View.GONE);
-                }
-            }
-        });
+         */
     }
 
     public void addReview(String dish, String review) {
@@ -321,7 +340,7 @@ public class DiningHallActivity extends AppCompatActivity {
         mMenu.setText("");
 
         // Re-fetch the menu for the current meal
-        getMenu(currentMeal);
+        getMenu();
     }
 
 
