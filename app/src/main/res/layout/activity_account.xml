@@ -122,6 +122,14 @@
                         />
                 </LinearLayout>
 
+                <Button
+                    android:id="@+id/btn_emailchange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apply_btn"
+                    android:layout_marginTop="30dp"
+                    />
+
 
 
 
@@ -151,7 +159,7 @@
 
 
                 <Button
-                    android:id="@+id/btn_applychange"
+                    android:id="@+id/btn_pwdchange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/apply_btn"

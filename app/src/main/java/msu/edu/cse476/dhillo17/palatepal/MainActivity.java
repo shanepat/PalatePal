@@ -1,6 +1,6 @@
 package msu.edu.cse476.dhillo17.palatepal;
 
-import msu.edu.cse476.dhillo17.palatepal.R;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+
 import android.widget.TextView;
 
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
     public static final String SHARED_PREFS = "sharedPrefs";
 
-    String emailUser,usernameUser, passwordUser;
+    String usernameUser;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -154,9 +154,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void passUserData() {
         Intent intent = getIntent();
 
-        emailUser = intent.getStringExtra("email");
         usernameUser = intent.getStringExtra("username");
-        passwordUser = intent.getStringExtra("password");
+
 
 
 
@@ -219,9 +218,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openDiningHallActivity(String diningHallName) {
+        Intent currentintent = getIntent();
+
+        usernameUser = currentintent.getStringExtra("username");
 
         Intent intent = new Intent(MainActivity.this, DiningHallActivity.class);
         intent.putExtra("DiningHallName", diningHallName);
+        intent.putExtra("username", usernameUser);
         startActivity(intent);
     }
     public void onHomeClick(View view) {

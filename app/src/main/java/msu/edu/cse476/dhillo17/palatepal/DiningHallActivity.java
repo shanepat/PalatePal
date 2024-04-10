@@ -70,6 +70,8 @@ public class DiningHallActivity extends AppCompatActivity {
     private final int lightGreen = Color.rgb(0,40,20);
     private final int darkGreen = Color.rgb(32,68,60);
 
+    String userName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +79,8 @@ public class DiningHallActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dining_hall);
 
         mDiningHallName = getIntent().getStringExtra("DiningHallName");
+
+        userName = getIntent().getStringExtra("username");
 
         // Initialize buttons
         breakfastButton = findViewById(R.id.breakfast_button);
@@ -250,7 +254,7 @@ public class DiningHallActivity extends AppCompatActivity {
     private void createButton(final String foodItem, final String foodReview) {
         final LinearLayout layout = findViewById(R.id.reviewed_food_items);
         LinearLayout foodView = new FoodItem(this, foodItem, foodReview, 5.0,
-                1, mDiningHallName, currentMeal);
+                1, mDiningHallName, currentMeal,userName);
         foodView.setBackgroundColor(nextAlternatingColor());
         layout.addView(foodView);
 

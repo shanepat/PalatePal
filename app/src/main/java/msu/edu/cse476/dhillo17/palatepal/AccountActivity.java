@@ -1,11 +1,10 @@
 package msu.edu.cse476.dhillo17.palatepal;
 
-import static android.content.ContentValues.TAG;
+
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,12 +20,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,7 +51,8 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
 
 
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
-        Button btnChange = findViewById(R.id.btn_applychange);
+        Button btnPwdChange = findViewById(R.id.btn_pwdchange);
+        Button btnEmailChange = findViewById(R.id.btn_emailchange);
 
         editEmail = findViewById(R.id.et_email);
 
@@ -73,12 +69,28 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
 
 
 
-        btnChange.setOnClickListener(new View.OnClickListener() {
+        btnEmailChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (isPasswordChanged() || isEmailChanged()){
-                    Toast.makeText(AccountActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                if (isEmailChanged()){
+                    Toast.makeText(AccountActivity.this, "New Email Saved", Toast.LENGTH_SHORT).show();
+                    passUserData();
+
+                } else {
+                    Toast.makeText(AccountActivity.this, "No Changes Found", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+        });
+
+        btnPwdChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isPasswordChanged()){
+                    Toast.makeText(AccountActivity.this, "New Password Saved", Toast.LENGTH_SHORT).show();
                     passUserData();
 
                 } else {
@@ -184,23 +196,9 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
 
     }
 
-//    private boolean isNameChanged() {
-//        if (!usernameUser.equals(editUsername.getText().toString())){
-//            if (editUsername.getText().toString() != ""){
-//                mDatabaseRef.child(usernameUser).child("username").setValue(editUsername.getText().toString());
-//                usernameUser = editUsername.getText().toString();
-//                return true;
-//            }
-//            else {
-//                return false;
-//            }
-//        } else {
-//            return false;
-//        }
-//    }
     private boolean isEmailChanged() {
-        if (!emailUser.equals(editEmail.getText().toString())){
-            if (editEmail.getText().toString() != ""){
+        if (editEmail != null){
+            if (!emailUser.equals(editEmail.getText().toString())){
                 mDatabaseRef.child(usernameUser).child("email").setValue(editEmail.getText().toString());
                 emailUser = editEmail.getText().toString();
                 return true;
@@ -213,8 +211,8 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
         }
     }
     private boolean isPasswordChanged() {
-        if (!passwordUser.equals(editPassword.getText().toString())){
-            if (editPassword.getText().toString() != ""){
+        if (editPassword != null ){
+            if (!passwordUser.equals(editPassword.getText().toString())){
                 mDatabaseRef.child(usernameUser).child("password").setValue(editPassword.getText().toString());
                 passwordUser = editPassword.getText().toString();
                 return true;

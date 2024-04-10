@@ -41,6 +41,7 @@ public class FoodItem extends LinearLayout {
     private int numReviews = 0;
     private String diningHall;
     private String meal;
+    private String username;
 
 //    public FoodItem(Context context) {
 //        super(context);
@@ -58,7 +59,7 @@ public class FoodItem extends LinearLayout {
 //    }
 
     public FoodItem(Context context, String foodName, String reviews,
-                    Double ratingStars, int numReviews, String diningHall, String meal)
+                    Double ratingStars, int numReviews, String diningHall, String meal,String userName)
     {
         super(context);
 
@@ -73,6 +74,7 @@ public class FoodItem extends LinearLayout {
         this.numReviews = numReviews;
         this.diningHall = diningHall;
         this.meal = meal;
+        this.username = userName;
 
         if(Objects.equals(foodName, "Burger"))
         {
@@ -151,7 +153,7 @@ public class FoodItem extends LinearLayout {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String reviewText = input.getText().toString().trim();
-                        addReview(foodName, "\nUsername: " + reviewText );
+                        addReview(foodName, "\nUsername: " + username );
                         // Save the review or perform any other action here
                         Toast.makeText(getContext(), "Review submitted: " + reviewText, Toast.LENGTH_SHORT).show();
                     }
