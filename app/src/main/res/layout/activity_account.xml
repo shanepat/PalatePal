@@ -47,46 +47,108 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center">
+
                 <TextView
                     android:id="@+id/hellouser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:gravity="center_horizontal" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/changename"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:layout_marginTop="30dp"/>
-                <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:hint="@string/name_reg"
-                    android:padding="20dp"
-                    android:layout_marginTop="30dp"/>
+                    android:textSize="25sp"
+                    android:gravity="center_horizontal"
+                    android:layout_margin="20dp"/>
+
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/changepwd"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:layout_marginTop="50dp"/>
-
-                <EditText
-                    android:id="@+id/et_pwd"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:layout_margin="20dp"
+                    android:text="@string/userinfo"/>
+                <TextView
+                    android:id="@+id/profileEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:padding="20dp"
-                    android:hint="@string/pwd_reg"
-                    android:layout_marginTop="30dp"/>
+                    android:textSize="20sp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     />
+                <TextView
+                    android:id="@+id/profileUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    />
+                <TextView
+                    android:id="@+id/profilePwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/changeprmt"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/changeemail"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        />
+
+
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:padding="10dp"
+                        android:hint="@string/email_reg"
+                        />
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/changepwd"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        />
+
+
+                    <EditText
+                        android:id="@+id/et_pwd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:padding="10dp"
+                        android:hint="@string/pwd_reg"
+                        />
+                </LinearLayout>
+
 
                 <Button
                     android:id="@+id/btn_applychange"

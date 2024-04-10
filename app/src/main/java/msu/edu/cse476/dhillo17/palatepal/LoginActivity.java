@@ -71,29 +71,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 checkUser();
 
-
-//                mFirebaseAuth.signInWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()){
-//                            // Complete Login
-//                            if (mRemember.isChecked()){
-//                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-//                                SharedPreferences.Editor editor = sharedPreferences.edit();
-//
-//                                editor.putString("name", "true");
-//                                editor.apply();}
-//
-//                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                            startActivity(intent);
-//                            finish(); //destroy current activity
-//                        }
-//                        else{
-//                            Toast.makeText(LoginActivity.this, "Failure to Login :(",Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    }
-//                });
             }
         });
 
@@ -120,9 +97,14 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String check = sharedPreferences.getString("name","");
         if (check.equals("true")){
-            Intent registerIntent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(registerIntent);
-            finish();
+            String savedUsername = sharedPreferences.getString("username", "");
+            if (!savedUsername.isEmpty()) {
+                // Start MainActivity with the saved username
+                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                mainIntent.putExtra("username", savedUsername);
+                startActivity(mainIntent);
+                finish();
+            }
         }
     }
 
@@ -145,6 +127,14 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("email", emailFromDB);
                         intent.putExtra("username", usernameFromDB);
                         intent.putExtra("password", passwordFromDB);
+
+                        if (mRemember.isChecked()){
+                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                editor.putString("name", "true");
+                                editor.putString("username", usernameFromDB);
+                                editor.apply();}
                         startActivity(intent);
                     } else {
                         loginPassword.setError("Invalid Credentials");

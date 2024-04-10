@@ -25,8 +25,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 //button code from:
 //        https://www.geeksforgeeks.org/handling-click-events-button-android/
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
     public static final String SHARED_PREFS = "sharedPrefs";
 
-
+    String emailUser,usernameUser, passwordUser;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -48,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         firebaseAuth = FirebaseAuth.getInstance();
 
+        
+        
         Button buttonCaseHall = findViewById(R.id.button_case_hall);
         Button button_wilson_hall = findViewById(R.id.button_wilson_hall);
         Button button_owen_hall = findViewById(R.id.button_owen_hall);
@@ -125,8 +130,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         } else if (menuItem.getItemId() == R.id.my_account) {
-            Intent profileIntent = new Intent(MainActivity.this, AccountActivity.class);
-            startActivity(profileIntent);
+            passUserData();
         } else if (menuItem.getItemId() == R.id.nav_map) {
             Intent mapIntent = new Intent(MainActivity.this, MapsActivity.class);
             startActivity(mapIntent);
@@ -146,6 +150,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void passUserData() {
+        Intent intent = getIntent();
+
+        emailUser = intent.getStringExtra("email");
+        usernameUser = intent.getStringExtra("username");
+        passwordUser = intent.getStringExtra("password");
+
+
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUserDatabase = reference.orderByChild("username").equalTo(usernameUser);
+        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String emailFromDB = snapshot.child(usernameUser).child("email").getValue(String.class);
+                    String usernameFromDB = snapshot.child(usernameUser).child("username").getValue(String.class);
+                    String passwordFromDB = snapshot.child(usernameUser).child("password").getValue(String.class);
+                    Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+                    intent.putExtra("email", emailFromDB);
+                    intent.putExtra("username", usernameFromDB);
+                    intent.putExtra("password", passwordFromDB);
+                    startActivity(intent);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
 
 
     @Override

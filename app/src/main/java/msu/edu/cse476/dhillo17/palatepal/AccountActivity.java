@@ -31,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class AccountActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,13 +39,13 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
-    private FirebaseAuth mFirebaseAuth;                     // Firebase Authentication
     private DatabaseReference mDatabaseRef;
-    private UserAccount mUser;
 
-    private EditText mNewPassWord,mNewUserName;
+    TextView  profileEmail, profileUsername, profilePassword;
+
     public static final String SHARED_PREFS = "sharedPrefs";
+    private EditText editEmail, editPassword;
+    private String emailUser, usernameUser, passwordUser;
 
 
     @Override
@@ -54,59 +55,40 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
         setContentView(R.layout.activity_account);
 
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("PalatePal");
-
-
-
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("users");
         Button btnChange = findViewById(R.id.btn_applychange);
 
-        mNewUserName = findViewById(R.id.et_name);
-        mNewPassWord = findViewById(R.id.et_pwd);
+        editEmail = findViewById(R.id.et_email);
+
+        editPassword = findViewById(R.id.et_pwd);
+
+
+        profileEmail = findViewById(R.id.profileEmail);
+        profileUsername = findViewById(R.id.profileUserName);
+        profilePassword = findViewById(R.id.profilePwd);
+
+        showAllUserData();
 
 
 
-        TextView HelloText = findViewById(R.id.hellouser);
 
 
         btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (isPasswordChanged() || isEmailChanged()){
+                    Toast.makeText(AccountActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                    passUserData();
 
-                if (mNewPassWord.getText().toString() != ""){
-                    user.updatePassword(mNewPassWord.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(AccountActivity.this, "Complete Update :)",Toast.LENGTH_SHORT).show();
-                            }
-                            else{
-                                Toast.makeText(AccountActivity.this, "Incomplete Update :(",Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                } else {
+                    Toast.makeText(AccountActivity.this, "No Changes Found", Toast.LENGTH_SHORT).show();
                 }
-                if (mNewUserName.getText().toString() != ""){
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(mNewUserName.getText().toString()).build();
-                    user.updateProfile(profileUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.d(TAG, "User profile updated.");
-                                    } else {
-                                        Log.e(TAG, "Failed to update user profile.", task.getException());
-                                    }
-                                }
-                            });
-
-                }
-
             }
+
+
         });
+
 
 
         drawerLayout=findViewById(R.id.drawer_layout);
@@ -122,6 +104,33 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.my_account);
+    }
+
+    public void passUserData() {
+        Intent intent = getIntent();
+
+        usernameUser = intent.getStringExtra("username");
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUserDatabase = reference.orderByChild("username").equalTo(usernameUser);
+        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String emailFromDB = snapshot.child(usernameUser).child("email").getValue(String.class);
+                    String usernameFromDB = snapshot.child(usernameUser).child("username").getValue(String.class);
+                    String passwordFromDB = snapshot.child(usernameUser).child("password").getValue(String.class);
+                    Intent intent = new Intent(AccountActivity.this, MainActivity.class);
+                    intent.putExtra("email", emailFromDB);
+                    intent.putExtra("username", usernameFromDB);
+                    intent.putExtra("password", passwordFromDB);
+                    startActivity(intent);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
 
@@ -153,22 +162,74 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void showAllUserData(){
+
+        Intent intent = getIntent();
+
+        emailUser = intent.getStringExtra("email");
+        usernameUser = intent.getStringExtra("username");
+        passwordUser = intent.getStringExtra("password");
+
+
+        TextView HelloText = findViewById(R.id.hellouser);
+        HelloText.setText(usernameUser);
+
+        profileEmail.setText(emailUser);
+        profileUsername.setText(usernameUser);
+
+        String maskedPassword = passwordUser.substring(0, passwordUser.length() - 3) + "***";
+
+        profilePassword.setText(maskedPassword);
+
+    }
+
+//    private boolean isNameChanged() {
+//        if (!usernameUser.equals(editUsername.getText().toString())){
+//            if (editUsername.getText().toString() != ""){
+//                mDatabaseRef.child(usernameUser).child("username").setValue(editUsername.getText().toString());
+//                usernameUser = editUsername.getText().toString();
+//                return true;
+//            }
+//            else {
+//                return false;
+//            }
+//        } else {
+//            return false;
+//        }
+//    }
+    private boolean isEmailChanged() {
+        if (!emailUser.equals(editEmail.getText().toString())){
+            if (editEmail.getText().toString() != ""){
+                mDatabaseRef.child(usernameUser).child("email").setValue(editEmail.getText().toString());
+                emailUser = editEmail.getText().toString();
+                return true;
+            }
+            else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    private boolean isPasswordChanged() {
+        if (!passwordUser.equals(editPassword.getText().toString())){
+            if (editPassword.getText().toString() != ""){
+                mDatabaseRef.child(usernameUser).child("password").setValue(editPassword.getText().toString());
+                passwordUser = editPassword.getText().toString();
+                return true;
+            }
+            else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }
 
 
 
 
-
-
-
-//        user.updateEmail()
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//                        if (task.isSuccessful()) {
-//                            Log.d(TAG, "User email address updated.");
-//                        }
-//                    }
-//                });
 
 

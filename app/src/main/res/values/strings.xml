@@ -61,7 +61,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navi">Close</string>
     <string name="remember">Remember me</string>
-    <string name="changename">New UserName</string>
-    <string name="changepwd">New PassWord</string>
+    <string name="changeemail">Change Email: "</string>
+    <string name="changename">Change Username: "</string>
+    <string name="changepwd">Change Password: "</string>
     <string name="apply_btn">Apply Change</string>
+    <string name="userinfo">Your Account Info:</string>
+    <string name="changeprmt">Change Your Account:</string>
 </resources>
