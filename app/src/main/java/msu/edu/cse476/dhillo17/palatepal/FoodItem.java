@@ -153,7 +153,7 @@ public class FoodItem extends LinearLayout {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String reviewText = input.getText().toString().trim();
-                        addReview(foodName, "\nUsername: " + username );
+                        addReview(foodName, "\nUsername: " + username+"\nReviews: " + reviewText );
                         // Save the review or perform any other action here
                         Toast.makeText(getContext(), "Review submitted: " + reviewText, Toast.LENGTH_SHORT).show();
                     }
