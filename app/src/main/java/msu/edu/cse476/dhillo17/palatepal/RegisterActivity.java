@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterActivity extends AppCompatActivity {
 
 
+    FirebaseDatabase database;
     private FirebaseAuth mFirebaseAuth;                     // Firebase Authentication
     private DatabaseReference mDatabaseRef;                 // Realtime Database
     private EditText mEtName, mEtEmail, mEtPwd;  // User Info
@@ -46,39 +47,49 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
+
                 // Register processing
                 String strName = mEtName.getText().toString();
                 String strEmail = mEtEmail.getText().toString();
                 String strPwd = mEtPwd.getText().toString();
 
 
+                database = FirebaseDatabase.getInstance();
+                mDatabaseRef = database.getReference("users");
+
+
+                UserAccount userAccount = new UserAccount(strEmail,strName, strPwd);
+                mDatabaseRef.child(strName).setValue(userAccount);
+                Toast.makeText(RegisterActivity.this, "You have signup successfully!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+
                 // Firebase Auth processing
 
-                mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
-                    {
-                        if (task.isSuccessful()){
-                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(strName) // Set the display name here
-                                    .build();
-                            UserAccount account = new UserAccount();
-                            account.setIdToken(firebaseUser.getUid());
-                            account.setName(strName);
-                            account.setEmailId(firebaseUser.getEmail());
-                            account.setPassword(strPwd);
-                            mDatabaseRef.child("UserAccount").child(firebaseUser.getUid()).setValue(account);
-
-                            Toast.makeText(RegisterActivity.this, "Succesfully complete Registeration :)",Toast.LENGTH_SHORT).show();
-                            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            RegisterActivity.this.startActivity(loginIntent);
-                        }
-                        else {
-                            Toast.makeText(RegisterActivity.this, "Incomplete Registeration :(",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+//                mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task)
+//                    {
+//                        if (task.isSuccessful()){
+//                            FirebaseUser firebaseUser = mFirebaseAuth.getCurrentUser();
+//                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                                    .setDisplayName(strName) // Set the display name here
+//                                    .build();
+//                            UserAccount account = new UserAccount();
+//                            account.setName(strName);
+//                            account.setEmailId(strEmail);
+//                            account.setPassword(strPwd);
+//                            mDatabaseRef.child("UserAccount").setValue(account);
+//
+//                            Toast.makeText(RegisterActivity.this, "Succesfully complete Registeration :)",Toast.LENGTH_SHORT).show();
+//                            Intent loginIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                            RegisterActivity.this.startActivity(loginIntent);
+//                        }
+//                        else {
+//                            Toast.makeText(RegisterActivity.this, "Incomplete Registeration :(",Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
             }
         });
 

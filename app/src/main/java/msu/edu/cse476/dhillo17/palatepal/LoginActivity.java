@@ -23,14 +23,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;                     // Firebase Authentication
     private DatabaseReference mDatabaseRef;                 // Realtime Database
-    private EditText mEtEmail, mEtPwd;  // User Info
+    private EditText loginUsername, loginPassword;  // User Info
     private SharedPreferences mSharedPreferences;
     private CheckBox mRemember;
 
@@ -48,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("PalatePal");
 
-        mEtEmail = findViewById(R.id.et_email);
-        mEtPwd = findViewById(R.id.et_pwd);
+        loginUsername  = findViewById(R.id.et_name);
+        loginPassword  = findViewById(R.id.et_pwd);
         mRemember = findViewById(R.id.remember_me_clkb);
         checkBox();
 
@@ -59,31 +63,37 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Login Request
-                String strEmail = mEtEmail.getText().toString();
-                String strPwd = mEtPwd.getText().toString();
 
-                mFirebaseAuth.signInWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            // Complete Login
-                            if (mRemember.isChecked()){
-                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                checkUser();
 
-                                editor.putString("name", "true");
-                                editor.apply();}
+                String userUsername = loginUsername.getText().toString().trim();
+                String userPassword = loginPassword.getText().toString().trim();
 
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish(); //destroy current activity
-                        }
-                        else{
-                            Toast.makeText(LoginActivity.this, "Failure to Login :(",Toast.LENGTH_SHORT).show();
+                checkUser();
 
-                        }
-                    }
-                });
+
+//                mFirebaseAuth.signInWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()){
+//                            // Complete Login
+//                            if (mRemember.isChecked()){
+//                                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+//                                SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//                                editor.putString("name", "true");
+//                                editor.apply();}
+//
+//                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                            startActivity(intent);
+//                            finish(); //destroy current activity
+//                        }
+//                        else{
+//                            Toast.makeText(LoginActivity.this, "Failure to Login :(",Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                    }
+//                });
             }
         });
 
@@ -114,6 +124,41 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(registerIntent);
             finish();
         }
+    }
+
+    public void checkUser(){
+        String userUsername = loginUsername.getText().toString().trim();
+        String userPassword = loginPassword.getText().toString().trim();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        Query checkUserDatabase = reference.orderByChild("username").equalTo(userUsername);
+        checkUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    loginUsername.setError(null);
+                    String passwordFromDB = snapshot.child(userUsername).child("password").getValue(String.class);
+                    if (passwordFromDB.equals(userPassword)) {
+                        loginUsername.setError(null);
+                        String emailFromDB = snapshot.child(userUsername).child("email").getValue(String.class);
+                        String usernameFromDB = snapshot.child(userUsername).child("username").getValue(String.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.putExtra("email", emailFromDB);
+                        intent.putExtra("username", usernameFromDB);
+                        intent.putExtra("password", passwordFromDB);
+                        startActivity(intent);
+                    } else {
+                        loginPassword.setError("Invalid Credentials");
+                        loginPassword.requestFocus();
+                    }
+                } else {
+                    loginUsername.setError("User does not exist");
+                    loginUsername.requestFocus();
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
 }

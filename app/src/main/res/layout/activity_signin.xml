@@ -53,10 +53,10 @@
 
             <EditText
                 android:inputType="textEmailAddress"
-                android:id="@+id/et_email"
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:hint="@string/email_login"
+                android:hint="@string/username"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
                 android:layout_marginStart="40dp"

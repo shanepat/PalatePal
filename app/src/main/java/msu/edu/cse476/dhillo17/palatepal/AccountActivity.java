@@ -58,11 +58,13 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("PalatePal");
 
 
-        String newPassword = "SOME-SECURE-PASSWORD";
+
         Button btnChange = findViewById(R.id.btn_applychange);
 
         mNewUserName = findViewById(R.id.et_name);
         mNewPassWord = findViewById(R.id.et_pwd);
+
+
 
         TextView HelloText = findViewById(R.id.hellouser);
 
@@ -73,8 +75,8 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                if (mNewPassWord.toString() != ""){
-                    user.updatePassword(mNewPassWord.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                if (mNewPassWord.getText().toString() != ""){
+                    user.updatePassword(mNewPassWord.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
@@ -86,9 +88,9 @@ public class AccountActivity extends AppCompatActivity implements NavigationView
                         }
                     });
                 }
-                if (mNewUserName.toString() != ""){
+                if (mNewUserName.getText().toString() != ""){
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName("mNewUserName.toString()").build();
+                            .setDisplayName(mNewUserName.getText().toString()).build();
                     user.updateProfile(profileUpdates)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
