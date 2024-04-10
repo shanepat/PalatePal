@@ -1,27 +1,46 @@
 package msu.edu.cse476.dhillo17.palatepal;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.text.InputType;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Objects;
 
 /**
  * TODO: document your custom view class.
  */
-public class FoodItem extends View {
+public class FoodItem extends LinearLayout {
 
     // Food item
     private String foodName = "";
     private String topReview = "";
     private Double ratingStars = 0.0;
     private int numReviews = 0;
+    private String diningHall;
+    private String meal;
 
 //    public FoodItem(Context context) {
 //        super(context);
@@ -38,16 +57,27 @@ public class FoodItem extends View {
 //        init(attrs, defStyle);
 //    }
 
-    public FoodItem(Context context, String foodName, String topReview,
-                    Double ratingStars, int numReviews)
+    public FoodItem(Context context, String foodName, String reviews,
+                    Double ratingStars, int numReviews, String diningHall, String meal)
     {
         super(context);
 
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        //View sampleView = LayoutInflater.from(context).inflate(R.layout.sample_food_item, null);
+        inflater.inflate(R.layout.sample_food_item, this, true);
+
         this.foodName = foodName;
-        this.topReview = topReview;
+        this.topReview = reviews;
         this.ratingStars = ratingStars;
         this.numReviews = numReviews;
+        this.diningHall = diningHall;
+        this.meal = meal;
 
+        if(Objects.equals(foodName, "Burger"))
+        {
+            String tmep = "";
+        }
 
         // Food name
         TextView foodNameView = (TextView)findViewById(R.id.food_name);
@@ -55,7 +85,7 @@ public class FoodItem extends View {
 
         // Top review
         TextView topReviewView = (TextView)findViewById(R.id.top_review);
-        topReviewView.setText(topReview);
+        topReviewView.setText(reviews);
 
         // Num of reviews
         TextView numReviewsView = (TextView)findViewById(R.id.num_reviews_text);
@@ -104,12 +134,80 @@ public class FoodItem extends View {
             star1View.setImageResource(R.drawable.full_star);
         }
 
-    }
+        findViewById(R.id.leave_review_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create a custom dialog with a text field and a submit button
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Create Review");
 
+                // Set up the input
+                final EditText input = new EditText(getContext());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String reviewText = input.getText().toString().trim();
+                        addReview(foodName, "\nUsername: " + reviewText );
+                        // Save the review or perform any other action here
+                        Toast.makeText(getContext(), "Review submitted: " + reviewText, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
     }
+
+    public void addReview(String dish, String review) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference diningHallRef = database.getReference("PalatePal").child("DiningHalls").child(diningHall).child(meal).child(dish);
+
+        // Append the new review to the existing reviews (if any)
+        diningHallRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String existingReviews = dataSnapshot.getValue(String.class);
+                if (existingReviews != null) {
+                    // Append the new review to the existing ones, separated by a delimiter (e.g., newline)
+                    String newReviews = existingReviews + "\n" + review;
+                    // Update the database with the new reviews
+                    diningHallRef.setValue(newReviews);
+                    //updateReviewText(dish, newReviews);
+                    updateReviews(newReviews);
+                } else {
+                    // If there are no existing reviews, just set the new review as the value
+                    diningHallRef.setValue(review);
+                    updateReviews(review);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase", "Error: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    public void updateReviews(String newReview)
+    {
+        TextView reviewsTextView = (TextView)findViewById(R.id.top_review);
+        reviewsTextView.setText(newReview);
+        invalidate();
+    }
+
 }

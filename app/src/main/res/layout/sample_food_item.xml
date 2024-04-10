@@ -3,21 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <msu.edu.cse476.dhillo17.palatepal.FoodItem
-        style="@style/Widget.Theme.Palatepal.MyView"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="@color/text_color_green"
-        android:paddingLeft="20dp"
-        android:paddingBottom="40dp"
-        app:exampleDimension="24sp"
-        app:exampleDrawable="@android:drawable/ic_menu_add"
-        app:exampleString="Hello, FoodItem" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="#006633"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -40,7 +28,7 @@
                 android:id="@+id/review_layout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -100,15 +88,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/top_review"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:layout_weight="2.3"
-                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="@string/top_review_defualt"
                 android:textColor="#FFFFFF"
@@ -117,7 +106,7 @@
             <Button
                 android:id="@+id/leave_review_button"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="70dp"
                 android:layout_weight="1"
                 android:backgroundTint="#707070"
                 android:insetLeft="8dp"
