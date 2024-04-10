@@ -136,7 +136,9 @@
                     android:layout_height="75dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/review_2"
+                    android:drawableLeft="@drawable/review_4"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="20dp"
                     android:tag="Wilson"
                     android:text="Wilson Hall" />
 
@@ -146,16 +148,20 @@
                     android:layout_height="74dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/review_1"
+                    android:drawableLeft="@drawable/review_2"
+
                     android:tag="Owen"
-                    android:text="Owen Hall" />
+                    android:text="Owen Hall"
+                    android:layout_marginBottom="4dp" />
                 <Button
                     android:id="@+id/button_shaw_hall"
                     android:layout_width="match_parent"
                     android:layout_height="77dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/review_1"
+                    android:drawableLeft="@drawable/review_5"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="20dp"
                     android:tag="Shaw"
                     android:text="Shaw Hall" />
                 <Button
@@ -164,7 +170,9 @@
                     android:layout_height="101dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/review_1"
+                    android:drawableLeft="@drawable/review_312"
+                    android:drawablePadding="8dp"
+                    android:paddingLeft="20dp"
                     android:tag="Brody"
                     android:text="Brody Hall" />
             </LinearLayout>
