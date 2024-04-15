@@ -33,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 
 //button code from:
 //        https://www.geeksforgeeks.org/handling-click-events-button-android/
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Button mGetReview;
     private TextView mReview;
     private FirebaseAuth firebaseAuth;
@@ -94,9 +94,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-        mReview = findViewById(R.id.review);
-        mGetReview = findViewById(R.id.firebase);
-        mGetReview.setOnClickListener(this);
 
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
@@ -183,27 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    @Override
-    public void onClick(View view)
-    {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-//        myRef.child("review").setValue("Was really good");
-//        myRef.child("ref_1").child("review").setValue("Was really good 4/5");
-        Log.d("test", "made it");
-        myRef.child("review").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    mReview.setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-    }
+
 
     // TODO: Still need to work on this
     //chat

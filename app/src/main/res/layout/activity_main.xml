@@ -40,19 +40,7 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
 
             >
-            <Button
-                android:id="@+id/firebase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClick"
-                android:text="@string/temp_button"
-                tools:ignore="UsingOnClickInXml" />
 
-            <TextView
-                android:id="@+id/review"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/textview" />
 
             <LinearLayout
                 android:id="@+id/header"
