@@ -83,14 +83,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }));
 
-        ImageView homeButton = (ImageView) findViewById(R.id.logo);
-        homeButton.setOnClickListener((new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent homeIntent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(homeIntent);
-            }
-        }));
     }
 
     private void checkBox() {
