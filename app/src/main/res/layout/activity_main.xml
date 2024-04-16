@@ -57,16 +57,7 @@
                     android:src="@drawable/logo"
                     android:contentDescription="@string/logo" />
 
-                <ImageButton
-                    android:id="@+id/post_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:background="@null"
-                    android:contentDescription="@string/post_button"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/post_button" />
+
             </LinearLayout>
 
             <EditText
@@ -101,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/editTextSearch"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="60dp"
                 android:orientation="vertical"
                 android:weightSum="5">
 
