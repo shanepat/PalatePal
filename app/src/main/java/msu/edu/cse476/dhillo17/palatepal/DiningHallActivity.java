@@ -258,43 +258,21 @@ public class DiningHallActivity extends AppCompatActivity {
         foodView.setBackgroundColor(nextAlternatingColor());
         layout.addView(foodView);
 
-        // Was create review, has been moved to foodView
-        // Will need to change this to making it switch to the activity for the food item
-        /*
         foodView.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // Create a custom dialog with a text field and a submit button
-                AlertDialog.Builder builder = new AlertDialog.Builder(DiningHallActivity.this);
-                builder.setTitle("Create Review");
-
-                // Set up the input
-                final EditText input = new EditText(DiningHallActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
-
-                // Set up the buttons
-                builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String reviewText = input.getText().toString().trim();
-                        addReview(foodItem, "\nUsername: " + reviewText );
-                        // Save the review or perform any other action here
-                        Toast.makeText(DiningHallActivity.this, "Review submitted: " + reviewText, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                builder.show();
+                Intent foodReviewsIntent = new Intent(DiningHallActivity.this, FoodReviewsActivity.class);
+                foodReviewsIntent.putExtra("FoodName", foodItem);
+                foodReviewsIntent.putExtra("Reviews", foodReview);
+                foodReviewsIntent.putExtra("DiningHall", mDiningHallName);
+                foodReviewsIntent.putExtra("Meal", currentMeal);
+                foodReviewsIntent.putExtra("Username", userName);
+                foodReviewsIntent.putExtra("Rating", 5.0);
+                startActivity(foodReviewsIntent);
             }
+
         });
-         */
+
     }
 
     public void addReview(String dish, String review) {
