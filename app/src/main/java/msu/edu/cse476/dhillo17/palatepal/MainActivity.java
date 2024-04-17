@@ -32,18 +32,26 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 //button code from:
-//        https://www.geeksforgeeks.org/handling-click-events-button-android/
+//https://www.geeksforgeeks.org/handling-click-events-button-android/
+
+//Parts of this class are generated with ChatGPT and are explained with comments
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    //Declare variables in the view for later use
     private Button mGetReview;
     private TextView mReview;
+
+    //Needed for utilizng google cloud
     private FirebaseAuth firebaseAuth;
 
+    //For UI
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    public static final String SHARED_PREFS = "sharedPrefs";
 
+    //For saving data
+    public static final String SHARED_PREFS = "sharedPrefs";
     String usernameUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -52,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         firebaseAuth = FirebaseAuth.getInstance();
 
         
-        
+        //Find buttons in the view
         Button buttonCaseHall = findViewById(R.id.button_case_hall);
         Button button_wilson_hall = findViewById(R.id.button_wilson_hall);
         Button button_owen_hall = findViewById(R.id.button_owen_hall);
@@ -60,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button button_brody_hall = findViewById(R.id.button_brody_hall);
 
         // Add listeners for each dining hall button
+        //This could be done more efficiently likely by doing this insid ethe XML as opposed to on create
         buttonCaseHall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        //Buttons for each dining hall
         button_wilson_hall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,16 +104,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-
+        //Find UI elements in the view
         drawerLayout=findViewById(R.id.drawer_layout);
         navigationView=findViewById(R.id.nav_view);
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         navigationView.bringToFront();
-
-        ActionBarDrawerToggle toggle=new
-                ActionBarDrawerToggle(this,drawerLayout, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout, toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
@@ -182,8 +190,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    // TODO: Still need to work on this
-    //chat
     public void OnTargetedDiningHall(View view) {
         // Get the dining hall name from the clicked button's tag
         String diningHallName = view.getTag().toString();
@@ -196,9 +202,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void openDiningHallActivity(String diningHallName) {
         Intent currentintent = getIntent();
-
         usernameUser = currentintent.getStringExtra("username");
 
+        //Pass the diniing hall and username to the next view
         Intent intent = new Intent(MainActivity.this, DiningHallActivity.class);
         intent.putExtra("DiningHallName", diningHallName);
         intent.putExtra("username", usernameUser);
