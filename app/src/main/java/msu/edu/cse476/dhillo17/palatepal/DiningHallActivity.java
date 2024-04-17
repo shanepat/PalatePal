@@ -93,7 +93,7 @@ public class DiningHallActivity extends AppCompatActivity {
     private final int darkGreen = Color.rgb(32,68,60);
 
     //Save of userName
-    String userName;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
