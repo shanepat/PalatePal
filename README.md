@@ -26,7 +26,7 @@ PalatePal is an idea pitch for students to share their favorite dishes found at 
 
 ## Features
 
-1. [Login/Register](#Login/Register)
+1. [Login/Register](#Login//Register)
 2. [User Profile](#User-Profile)
 3. [Main Page](#Main-Page)
 4. [Reviews](#Reviews)
